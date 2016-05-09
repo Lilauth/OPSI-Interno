@@ -22,6 +22,5 @@ class Cliente extends Model
     {
 
         $query->where('NombreCliente', 'like', '%' . $nombreCliente . '%')->orWhere('OtrosNombres', 'like', '%' . $nombreCliente . '%');
-
     }  
 }

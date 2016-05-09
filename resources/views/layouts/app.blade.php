@@ -60,6 +60,7 @@
                     @else
                         <li><a href="{{ url('/client') }}">Clientes</a></li>
                         <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
+                        <li><a href="{{ url('/asistencias') }}">Asistencias</a></li>                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
