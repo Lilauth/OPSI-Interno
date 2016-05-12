@@ -26,7 +26,7 @@
 
                         {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
                         {!! Form::close() !!}           
-                    </div> 
+                    </div>
                     <div>                        
                          {!! Form::open([
                                         'method' => 'GET',
@@ -34,31 +34,34 @@
                                         'class' => 'navbar-form navbar-left pull-right',
                                         'role' => 'search'                                
                                          ]) !!}
-                         {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Desarrollador']) !!}                        
+                         {!! Form::label('Desarrollador', 'Desarrollador:', ['class' => 'control-label']) !!}                                    
+                         {!! Form::select('desarrollador', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}                        
                             <button type="submit" class="btn btn-default">Buscar</button>
                          {!! Form::close() !!} 
                     </div>        
                     <div class="panel-body">
                         <table class="table table-striped task-table">
                             <thead>
-                                <th>idDesarrollador</th>
-                                <th>Desde</th>
+                                <th>Desarrollador</th>
+                                <th>Fecha</th>                                
+                                <th>Desde</th>                                
                                 <th>Hasta</th>
                                 <!-- <th>&nbsp;</th>-->
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                             </thead>
                             <tbody>
-                                @foreach ($asistencias as $desarrollador)
+                                @foreach ($asistencias as $asistencia)
                                     <tr>
-                                        <td class="table-text"><div>{{ $desarrollador->iddesarrollador }}</div></td>
-                                        <td class="table-text"><div>{{ $desarrollador->desde }}</div></td>
-                                        <td class="table-text"><div>{{ $desarrollador->hasta }}</div></td>
+                                        <td class="table-text"><div>{{ $asistencia->desarrollador->NombreDesarrollador }}</div></td>
+                                        <td class="table-text"><div>{{ (new \Carbon\Carbon($asistencia->fecha))->format('d/m') }}</div></td>
+                                        <td class="table-text"><div>{{ (new \Carbon\Carbon($asistencia->desde))->format('h:s') }}</div></td>
+                                        <td class="table-text"><div>{{ (new \Carbon\Carbon($asistencia->hasta))->format('h:s') }}</div></td>
                                       
                                         <td>
                                             {!! Form::open([
                                                 'method' => 'GET',
-                                                'route' => ['asistencias.edit', $desarrollador->Iddesarrollador]                                
+                                                'route' => ['asistencias.edit', $asistencia->Iddesarrollador]                                
                                             ]) !!}
                                               <div>
                                                 <button type="submit" class="btn btn-primary">
@@ -71,7 +74,7 @@
                                         <td>
                                             {!! Form::open([
                                                 'method' => 'DELETE',
-                                                'route' => ['asistencias.destroy', $desarrollador->Iddesarrollador],
+                                                'route' => ['asistencias.destroy', $asistencia->Iddesarrollador],
                                                 'onsubmit' => 'return ConfirmDelete()'                  
                                             ]) !!}
                                             <div>

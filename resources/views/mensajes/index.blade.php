@@ -58,7 +58,7 @@
                             <tbody>
                                 @foreach ($mensajes as $mensaje)
                                     <tr>
-                                        <td class="table-text"><div>{{ $mensaje->Fecha }}</div></td>
+                                        <td class="table-text"><div>{{ (new \Carbon\Carbon($mensaje->Fecha))->diffForHumans() }}</div></td>
                                         <td class="table-text"><div>{{ $mensaje->Cliente }}</div></td>
                                         <td class="table-text"><div>{{ $mensaje->Mensaje }}</div></td>                                       
                                         <td class="table-text"><div>{{ $mensaje->desarrollador->NombreDesarrollador }}</div></td>                                       

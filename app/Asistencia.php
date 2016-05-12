@@ -15,15 +15,20 @@ class Asistencia extends Model
         'Debe',
         'Recupera'
     ];     
-
+    protected $dates = [
+        'Desde',
+        'Hasta',
+        'Fecha'
+    ];
+    
     public function desarrollador()
-    {                                               //el campo 'idDesarrollador' de esta tabla hace referencia al campo, 'idDesarrollador' de Desarrolladores
-        return $this->belongsTo('App\Desarrolador', 'idDesarrollador', 'idDesarrollador');
-    }   
-
-    public function scopePorDesarrolador($query, $idDesarrollador)
     {
+        return $this->belongsTo('App\Desarrollador', 'idDesarrollador', 'idDesarrollador');
+    }
 
-        $query->where('idDesarrollador', 'like', '%' . $idDesarrollador . '%');
-    }      
+    //ÉSTO ES PARA QUE ELOQUENT GUARDE LA FECHA SÓLO COMO DATE Y NO DATETIME
+    public function setFechaAttribute($date)
+    {
+        $this->attributes['fecha'] = Carbon::parse($date);
+    }
 }
