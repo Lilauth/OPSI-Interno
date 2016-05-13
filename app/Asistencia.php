@@ -9,16 +9,13 @@ class Asistencia extends Model
     public $timestamps = false;
     protected $primaryKey = 'idAsistencia';
     protected $table = 'Asistencia';
-    protected $fillable = [
-        'Desde',
-        'Hasta',
-        'Debe',
-        'Recupera'
-    ];     
+    protected $fillable = ['Desde'];     
     protected $dates = [
         'Desde',
         'Hasta',
-        'Fecha'
+        'Fecha',
+        'Debe',
+        'Recupera'
     ];
     
     public function desarrollador()
@@ -26,9 +23,9 @@ class Asistencia extends Model
         return $this->belongsTo('App\Desarrollador', 'idDesarrollador', 'idDesarrollador');
     }
 
-    //ÉSTO ES PARA QUE ELOQUENT GUARDE LA FECHA SÓLO COMO DATE Y NO DATETIME
     public function setFechaAttribute($date)
     {
-        $this->attributes['fecha'] = Carbon::parse($date);
+        //ÉSTO ES PARA QUE ELOQUENT GUARDE LA FECHA SÓLO COMO DATE Y NO DATETIME
+        strlen($fecha)? Carbon::parse('d/m/Y', $fecha) : null;
     }
 }
