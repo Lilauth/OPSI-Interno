@@ -21,7 +21,7 @@
             {!! Form::open([
                 'method' => 'GET',
                 'route' => ['asistencias.create'],
-                'class' => 'navbar-form navbar-left pull-left'                              
+                'class' => 'navbar-form navbar-left pull-left'
                 ]) !!}
 
                 {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
@@ -93,8 +93,7 @@
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->hasta)) != (new \Carbon\Carbon()))
                                             {{
-                                                ((new \Carbon\Carbon($asistencia->hasta))->hour) -
-                                                ((new \Carbon\Carbon($asistencia->desde))->hour)
+                                                floor((new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) / 60)
                                             }}
                                         @endif
                                     </div>
@@ -103,8 +102,7 @@
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->hasta)) != (new \Carbon\Carbon()))
                                             {{
-                                                ((new \Carbon\Carbon($asistencia->hasta))->minute) -
-                                                ((new \Carbon\Carbon($asistencia->desde))->minute)
+                                                (new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) % 60
                                             }}
                                         @endif
                                     </div>
@@ -113,7 +111,7 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'GET',
-                                        'route' => ['asistencias.edit', $asistencia->idDesarrollador]                                
+                                        'route' => ['asistencias.edit', $asistencia->idAsistencia]                                
                                     ]) !!}
                                       <div>
                                         <button type="submit" class="btn btn-primary">
@@ -126,7 +124,7 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'DELETE',
-                                        'route' => ['asistencias.destroy', $asistencia->idDesarrollador],
+                                        'route' => ['asistencias.destroy', $asistencia->idAsistencia],
                                         'onsubmit' => 'return ConfirmDelete()'                  
                                     ]) !!}
                                     <div>

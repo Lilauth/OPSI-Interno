@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Asistencia;
 use App\Desarrollador;
-use Carbon\Carbon;
 use App\Funciones;
+use Carbon\Carbon;
+
 use Auth;
+use View;
+use Session;
+use DB;
 
 class AsistenciaController extends Controller
 {
@@ -26,7 +30,7 @@ class AsistenciaController extends Controller
 
     private function validarAsistencia(Request $request){
         $this->validate($request, [
-             'Desde' => 'required'
+             'desde' => 'required'
         ]);
     }    
 
@@ -85,7 +89,7 @@ class AsistenciaController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('asistencia.create', array('desarrolladores_sel' => Funciones::getDesarrolladoresSelect()));
     }
 
     /**
@@ -96,21 +100,28 @@ class AsistenciaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validarMensaje($request);
+        $this->validarAsistencia($request);
 
         $input = $request->all();
+        //dd($input);
+        //LE DOY A LAS FECHAS UN FORMATO QUE LA BD ENTIENDA
+        $fecha = Carbon::createFromFormat('d-m-Y', $request->input('fecha'))->startOfDay();
+        $input['fecha'] = $fecha;
+
+        $desde = Carbon::createFromFormat('H:i', $request->input('desde'));
+        $input['desde'] = $desde;
+
+        ($input['hasta'] == "") ? ($input['hasta'] = null) : $input['hasta'] = Carbon::createFromFormat('H:i', $request->input('hasta'));
+
+        ($input['debe'] == "") ? ($input['debe'] = null) : $input['debe'] = Carbon::createFromFormat('H:i', $request->input('debe'));
+
+        ($input['recupera'] == "") ? ($input['recupera'] = null) : $input['recupera'] = Carbon::createFromFormat('H:i', $request->input('recupera'));
         
-        //dd($request->all());
+        Asistencia::create($input);
 
-        //le doy a la fecha un formato que la BD entienda
-        $date = Carbon::createFromFormat('d-m-Y', $request->input('Fecha'));
-        $input['Fecha'] = $date;         
+        Session::flash('flash_message', 'Alta de asistencia exitosa!');
 
-        MensajeTelefonico::create($input);
-
-        Session::flash('flash_message', 'Alta de mensaje exitosa!');
-
-        return redirect('/mensajes');
+        return redirect('/asistencias');
     }
 
     /**
@@ -132,7 +143,9 @@ class AsistenciaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $asistencia = Asistencia::findOrFail($id);   
+
+        return View::make('asistencia.edit', array('asistencia' => $asistencia, 'desarrolladores_sel' => Funciones::getDesarrolladoresSelect(), 'id_desarrollador' => $asistencia->idDesarrollador));
     }
 
     /**
@@ -144,7 +157,29 @@ class AsistenciaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $asistencia = Asistencia::findOrFail($id);
+
+        $this->validarAsistencia($request);
+        
+        $input = $request->all();
+        //LE DOY A LAS FECHAS UN FORMATO QUE LA BD ENTIENDA
+        $fecha = Carbon::createFromFormat('d-m-Y', $request->input('fecha'))->startOfDay();
+        $input['fecha'] = $fecha;
+
+        $desde = Carbon::createFromFormat('H:i', $request->input('desde'));
+        $input['desde'] = $desde;
+
+        ($input['hasta'] == "") ? ($input['hasta'] = null) : $input['hasta'] = Carbon::createFromFormat('H:i', $request->input('hasta'));
+
+        ($input['debe'] == "") ? ($input['debe'] = null) : $input['debe'] = Carbon::createFromFormat('H:i', $request->input('debe'));
+
+        ($input['recupera'] == "") ? ($input['recupera'] = null) : $input['recupera'] = Carbon::createFromFormat('H:i', $request->input('recupera'));
+
+        $asistencia->fill($input)->save();
+
+        Session::flash('flash_message', 'Asistencia editada con éxito!');
+
+        return redirect('/asistencias');
     }
 
     /**
@@ -155,6 +190,8 @@ class AsistenciaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $asistencia = Asistencia::findOrFail($id);
+        $asistencia->delete();
+        return redirect('/asistencias');
     }
 }
