@@ -64,3 +64,13 @@
         </div>    
     </div>    
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='NombreCliente']").focus();
+    });
+
+    </script>
+@endsection

@@ -91,11 +91,6 @@
     </nav>
 
     @yield('content')
-
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>        
+    @yield('scripts')
 </body>
 </html>

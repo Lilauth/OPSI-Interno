@@ -4,7 +4,7 @@
     <div class="container">
         <div class="panel panel-default">
             <div class="panel-heading">
-                        <h1>Editar Asistencia</h1>                       
+                        <h1>Editar Asistencia</h1>
             </div>
 
             <div class="panel-body">                
@@ -78,4 +78,20 @@
             </div>    
         </div>    
     </div>    
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='fecha']").focus();
+    });
+
+    </script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
+        });
+    </script>
 @endsection

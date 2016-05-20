@@ -102,3 +102,13 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("select[name='para']").focus();
+    });
+
+    </script>
+@endsection

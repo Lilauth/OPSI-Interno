@@ -15,7 +15,11 @@
     @if (count($asistencias) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
-                 <h1>Asistencias</h1>                    
+                <h1>Asistencias</h1>                    
+
+                <div>
+                    <h3>Totales: {{ $totales['horas'] }} hs, {{ $totales['minutos'] }} min</h3>
+                </div>                 
             </div>
             <div>
             {!! Form::open([
@@ -78,14 +82,14 @@
                                 <td class="table-text">
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->debe)) != (new \Carbon\Carbon()))
-                                            {{ (new \Carbon\Carbon($asistencia->debe))->format('h:i') }}
+                                            {{ (new \Carbon\Carbon($asistencia->debe))->format('H:i') }}
                                         @endif
                                     </div>
                                 </td>
                                 <td class="table-text">
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->recupera)) != (new \Carbon\Carbon()))
-                                            {{ (new \Carbon\Carbon($asistencia->recupera))->format('h:i') }}
+                                            {{ (new \Carbon\Carbon($asistencia->recupera))->format('H:i') }}
                                         @endif
                                     </div>
                                 </td>                                        
@@ -147,4 +151,14 @@
     </div>    
 </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("select[name='desarrollador']").focus();
+    });
+
+    </script>
 @endsection

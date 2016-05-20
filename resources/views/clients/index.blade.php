@@ -96,3 +96,13 @@
     </div>
 
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='name']").focus();
+    });
+
+    </script>
+@endsection

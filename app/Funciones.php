@@ -27,4 +27,17 @@ class Funciones
 
         return $empresas_sel;
     }
+
+    public static function getTotalAsistencias($id_desarrollador, $anio, $mes){
+        $asistencias = Asistencia::select(DB::raw('idDesarrollador, ROUND(SUM(DATEDIFF(MINUTE, desde, hasta)) / 60, 2) AS horas, (SUM(DATEDIFF(MINUTE, desde, hasta)) % 60) AS minutos'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
+
+        $totales = array();
+        foreach ($asistencias as $asist) {
+            $totales['horas'] = $asist->horas;
+            $totales['minutos'] = $asist->minutos;
+        }
+
+        return $totales;
+    }
+
 }

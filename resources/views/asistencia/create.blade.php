@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     {!! Form::label('Desarrollador', 'Desarrollador:', ['class' => 'control-label']) !!}
-                    {!! Form::select('idDesarrollador', $desarrolladores_sel, 100, ['class' => 'form-control']) !!}
+                    {!! Form::select('idDesarrollador', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}
                 </div>
 
 <!--CONTROLES DE TIPO "TIMEPICKER"-->
@@ -74,5 +74,21 @@
                 {!! Form::close() !!}
             </div>    
         </div>    
-    </div>    
+    </div>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='hasta']").focus();
+    });
+
+    </script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
+        });
+    </script>
 @endsection

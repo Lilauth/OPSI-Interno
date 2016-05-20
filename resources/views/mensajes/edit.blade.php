@@ -64,3 +64,19 @@
 </div>
 
 @endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='Fecha']").focus();
+    });
+
+    </script>
+
+    <script>
+        $(function() {
+            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
+        });
+    </script>
+@endsection

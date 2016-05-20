@@ -79,7 +79,9 @@ class AsistenciaController extends Controller
         //PAGINADO (EN LA VISTA, VEREMOS UN $asistencias->render())
         $asistencias = $query->paginate(30);
 
-        return view('asistencia.index', array('asistencias' => $asistencias, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'mes' => $mes, 'anio' => $anio));
+        $totales = Funciones::getTotalAsistencias($id_desarrollador, $anio, $mes);
+
+        return view('asistencia.index', array('asistencias' => $asistencias, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'mes' => $mes, 'anio' => $anio, 'totales' => $totales));
     }
 
     /**
@@ -89,7 +91,7 @@ class AsistenciaController extends Controller
      */
     public function create()
     {
-        return View::make('asistencia.create', array('desarrolladores_sel' => Funciones::getDesarrolladoresSelect()));
+        return View::make('asistencia.create', array('desarrolladores_sel' => Funciones::getDesarrolladoresSelect(), 'id_desarrollador' => Auth::user()->desarrollador->idDesarrollador));
     }
 
     /**
