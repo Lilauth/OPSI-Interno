@@ -17,8 +17,7 @@
                 @endif
                 <!-- -->
                 {!! Form::open(['url' => 'asistencias']) !!}
-
-                
+     
                 <div class="form-group">
                     {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label']) !!}
                     {!! Form::text('fecha', \Carbon\Carbon::now()->format('d-m-Y'), ['id' => 'datepicker', 'class' => 'form-control']) !!}
@@ -40,13 +39,6 @@
                     {!! Form::text('hasta', '', ['id' => 'hasta', 'class' => 'desdeHasta form-control']) !!}    
                 </div>
 
-                <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-                <script>
-                    $(function() {
-                        $('.desdeHasta').timepicker({'timeFormat': 'H:i', 'step': 10, 'showDuration': true, 'scrollDefault': 'now'});
-                    });
-                </script>
-
                 <div class="form-group">
                     {!! Form::label('Debe', 'Debe:', ['class' => 'control-label']) !!}
                     {!! Form::text('debe', '', ['id' => 'debe', 'class' => 'debeRecupera form-control']) !!}                     
@@ -56,13 +48,6 @@
                     {!! Form::label('Recupera', 'Recupera:', ['class' => 'control-label']) !!}
                     {!! Form::text('recupera', '', ['id' => 'recupera', 'class' => 'debeRecupera form-control']) !!}    
                 </div>
-
-                <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-                <script>
-                    $(function() {
-                        $('.debeRecupera').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
-                    });
-                </script>                
 <!--FIN CONTROLES DE TIPO "TIMEPICKER"-->
 
                 {!! Form::submit('Accept', ['class' => 'btn btn-success']) !!}
@@ -91,4 +76,18 @@
             $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
         });
     </script>
+
+    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
+    <script>
+        $(function() {
+            $('.desdeHasta').timepicker({'timeFormat': 'H:i', 'step': 10, 'showDuration': true, 'scrollDefault': 'now'});
+        });
+    </script>
+
+    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
+    <script>
+        $(function() {
+            $('.debeRecupera').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
+        });
+    </script>     
 @endsection

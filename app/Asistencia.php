@@ -22,4 +22,9 @@ class Asistencia extends Model
     {
         return $this->belongsTo('App\Desarrollador', 'idDesarrollador', 'idDesarrollador');
     }
+
+    public function tareaDet()
+    {
+        return $this->hasMany('App\Tarea', 'idAsistencia');
+    }
 }

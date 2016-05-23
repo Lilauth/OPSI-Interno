@@ -13,9 +13,10 @@
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
 
-    <!--PRUEBA IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
+    <!--IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
     <script src="https://www.google-analytics.com/analytics.js" async=""></script><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <script src="{{ asset('jquery-timepicker/lib/site.js') }}"></script>
@@ -26,7 +27,12 @@
 
     <script src="{{ asset('jquery-timepicker/jquery.timepicker.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('jquery-timepicker/jquery.timepicker.css') }}">
-    <!--FIN PRUEBA IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
+    <!--FIN IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
+
+    <!--IMPORTACIÓN DE COMPONENTES COLORPICKER-->
+    <script src="{{ asset('bp-colorpicker/dist/js/bootstrap-colorpicker.js') }}"></script>    
+    <link rel="stylesheet" href="{{ asset('bp-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <!--FIN IMPORTACIÓN DE COMPONENTES COLORPICKER-->
 
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
     <style>
@@ -74,12 +80,13 @@
                     @else
                         <li><a href="{{ url('/client') }}">Clientes</a></li>
                         <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
-                        <li><a href="{{ url('/asistencias') }}">Asistencias</a></li>                        
+                        <li><a href="{{ url('/asistencias') }}">Asistencias</a></li>
+                        <li><a href="{{ url('/estadostrabajo') }}">Estados de un Trabajo</a></li>                        
+                        <li><a href="{{ url('/sistemas') }}">Sistemas de Clientes</a></li>                        
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
                             </ul>

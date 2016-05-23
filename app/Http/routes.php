@@ -21,3 +21,5 @@ Route::get('/home', 'HomeController@index');
 Route::resource('client', 'ClientController');
 Route::resource('mensajes', 'MensajeTelefonicoController');
 Route::resource('asistencias', 'AsistenciaController');
+Route::resource('estadostrabajo', 'EstadoTrabajoController');
+Route::resource('sistemas', 'SistemaController');
