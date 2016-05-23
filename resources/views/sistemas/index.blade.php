@@ -22,9 +22,19 @@
                         ]) !!}
 
                         {!! Form::submit('Nuevo Sistema', ['class' => 'btn btn-primary']) !!}
-                        {!! Form::close() !!}           
-                    </div> 
-
+                        {!! Form::close() !!}          
+                    </div>
+                    <div>                        
+                         {!! Form::open([
+                                        'method' => 'GET',
+                                        'route' => ['sistemas.index'],
+                                        'class' => 'navbar-form navbar-left pull-right',
+                                        'role' => 'search'                                
+                                         ]) !!}
+                         {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Descripci&oacute;n']) !!}                        
+                            <button type="submit" class="btn btn-default">Buscar</button>
+                         {!! Form::close() !!} 
+                    </div>                           
                     <div class="panel-body">                       
                         <table class="table table-striped task-table">
                             <thead>
@@ -78,4 +88,14 @@
         </div>    
     </div>
 
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+        $("input[name='name']").focus();
+    });
+
+    </script>
 @endsection

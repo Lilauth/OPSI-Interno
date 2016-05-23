@@ -9,17 +9,30 @@ use App\Sistema;
 
 use View;
 use DB;
+use Auth;
+use Session;
 
 class SistemaController extends Controller
 {
+    public function __construct()
+    {
+        //no deja acceder sin login
+        $this->middleware('auth');
+    }
+
+    private function validarSistema(Request $request){
+        $this->validate($request, [
+             'Descripcion' => 'required'
+        ]);
+    }   
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $sistemas = Sistema::orderBy('Descripcion')->paginate(15);
+        $sistemas = Sistema::descripcion($request->get('name'))->orderBy('Descripcion')->paginate(15);
         return view('sistemas.index', array('sistemas' => $sistemas));
     }
 
@@ -30,7 +43,7 @@ class SistemaController extends Controller
      */
     public function create()
     {
-        //
+        return View::make('sistemas.create');
     }
 
     /**
@@ -41,7 +54,15 @@ class SistemaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validarSistema($request);
+
+        $input = $request->all();
+
+        Sistema::create($input);
+
+        Session::flash('flash_message', 'Alta de sistema exitosa!');
+
+        return redirect('/sistemas');
     }
 
     /**
@@ -63,7 +84,8 @@ class SistemaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sistema = Sistema::findOrFail($id);
+        return View::make('sistemas.edit', array('sistema' => $sistema));
     }
 
     /**
@@ -75,7 +97,17 @@ class SistemaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sistema = Sistema::findOrFail($id);
+
+        $this->validarSistema($request);
+        
+        $input = $request->all();
+
+        $sistema->fill($input)->save();
+
+        Session::flash('flash_message', 'Sistema editado con éxito!');
+
+        return redirect('/sistemas');
     }
 
     /**
@@ -86,6 +118,8 @@ class SistemaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $sistema = Sistema::findOrFail($id);
+        $sistema->delete();
+        return redirect('/sistemas');
     }
 }

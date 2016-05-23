@@ -11,4 +11,10 @@ class Sistema extends Model
     protected $table = 'Sistemas';
     protected $primaryKey = 'idSistema';    
     protected $fillable = ['Descripcion'];
+
+    public function scopeDescripcion($query, $descripcion)
+    {
+
+        $query->where('Descripcion', 'like', '%' . $descripcion . '%');
+    }  
 }
