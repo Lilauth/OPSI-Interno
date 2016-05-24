@@ -23,3 +23,4 @@ Route::resource('mensajes', 'MensajeTelefonicoController');
 Route::resource('asistencias', 'AsistenciaController');
 Route::resource('estadostrabajo', 'EstadoTrabajoController');
 Route::resource('sistemas', 'SistemaController');
+Route::resource('trabajos', 'TrabajoController');

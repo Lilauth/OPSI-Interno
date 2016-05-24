@@ -82,7 +82,8 @@
                         <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
                         <li><a href="{{ url('/asistencias') }}">Asistencias</a></li>
                         <li><a href="{{ url('/estadostrabajo') }}">Estados de un Trabajo</a></li>                        
-                        <li><a href="{{ url('/sistemas') }}">Sistemas de Clientes</a></li>                        
+                        <li><a href="{{ url('/sistemas') }}">Sistemas de Clientes</a></li>
+                        <li><a href="{{ url('/trabajos') }}">Trabajos</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

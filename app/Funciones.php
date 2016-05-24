@@ -12,13 +12,42 @@ class Funciones
     }*/
 
     public static function getDesarrolladoresSelect(){
-    	$desarrolladores = DB::table('Desarrolladores')->select('NombreDesarrollador', 'idDesarrollador')->where('activo', '1')->get();                        
+    	$desarrolladores = DB::table('Desarrolladores')->select('NombreDesarrollador', 'idDesarrollador')->where('activo', '1')->orderBy('NombreDesarrollador')->get();                        
         $desarrolladores_sel = array();
         foreach($desarrolladores as $des){
             $desarrolladores_sel[$des->idDesarrollador] = $des->NombreDesarrollador;
         }
 
         return $desarrolladores_sel;
+    }
+
+    public static function getClientesSelect(){
+        $Clientes = DB::table('Clientes')->select('NombreCliente', 'idCliente')->orderBy('NombreCliente')->get();                        
+        $Clientes_sel = array();
+        foreach($Clientes as $des){
+            $Clientes_sel[$des->idCliente] = $des->NombreCliente;
+        }
+
+        return $Clientes_sel;
+    }
+
+    public static function getSistemasSelect(){
+        $Sistemas = DB::table('Sistemas')->select('Descripcion', 'idSistema')->orderBy('Descripcion')->get();                        
+        $Sistemas_sel = array();
+        foreach($Sistemas as $des){
+            $Sistemas_sel[$des->idSistema] = $des->Descripcion;
+        }
+        return $Sistemas_sel;
+    }
+
+    public static function getEstadosSelect(){
+        $Estados = DB::table('EstadoTrabajo')->select('Estado', 'idEstado')->orderBy('Estado')->get();                        
+        $Estados_sel = array();
+        foreach($Estados as $des){
+            $Estados_sel[$des->idEstado] = $des->Estado;
+        }
+
+        return $Estados_sel;
     }
 
     public static function getEmpresasSelect(){
