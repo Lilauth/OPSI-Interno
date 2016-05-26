@@ -39,29 +39,52 @@ class TrabajoController extends Controller
      */
     public function index(Request $request)
     {
+        //CLIENTES DEL FILTRO
+        $clientes = Funciones::getClientesSelect();
+        $clientes[100000] = '--TODOS--';
+
+        //ESTADOS DEL FILTRO
+        $estados = Funciones::getEstadosSelect();
+        $estados[100000] = '--TODOS--';
+
         //DESARROLLADORES DEL FILTRO
         $desarrolladores_sel = Funciones::getDesarrolladoresSelect();
         $desarrolladores_sel[100] = '--TODOS--';
 
-        //SETEO EL MES
-        if($request->get('mes')){
-            $mes = $request->get('mes');
+        //DETERMINO SI QUIEREN FILTRO PARA CLIENTE
+        if($request->get('cliente')){
+            $id_cliente = $request->get('cliente');
         }
-        else
-            $mes = (new \Carbon\Carbon)->month;
+        else{
+            $id_cliente = 100000;
+        }
 
-        //SETEO EL AÑO
-        if($request->get('anio')){
-            $anio = $request->get('anio');
+        //DETERMINO SI QUIEREN FILTRO PARA ESTADO
+        if($request->get('estado')){
+            $id_estado = $request->get('estado');
         }
-        else
-            $anio = (new \Carbon\Carbon)->year;        
+        else{
+            $id_estado = 100000;
+        }
+        //DETERMINO SI SE CAMBIÒ EL FRILTRO POR MES (DESDE)
+        if($request->get('desde')){
+            $desde = Carbon::createFromFormat('d-m-Y', $request->get('desde'));
+        }else{
+            $desde = Carbon::now()->subMonth();
+        }
+
+        //DETERMINO SI SE CAMBIÒ EL FRILTRO POR MES (HASTA)
+        if($request->get('hasta')){
+            $hasta = Carbon::createFromFormat('d-m-Y', $request->get('hasta'));
+        }else{
+            $hasta = Carbon::now();
+        }
 
         //DETERMINO SI QUIEREN FILTRO PARA DESARROLLADOR 
         if ($request->get('responsable')){
             $id_desarrollador = $request->get('responsable');  
         } 
-        //NO QUIEREN FILTRADO DE ASISTENCIA, DETERMINO SI HAY USUARIO LOGUEADO
+        //NO QUIEREN FILTRADO DE TRABAJOS, DETERMINO SI HAY USUARIO LOGUEADO
         else{      
             if (Auth::user()){            
                 $id_desarrollador = Auth::user()->desarrollador->idDesarrollador;                                                        
@@ -72,17 +95,27 @@ class TrabajoController extends Controller
         }
         //A ESTA ALTURA IDDESARROLLADOR VALE 100 = TODOS O EL ID DE UN DESARROLLADOR
         if($id_desarrollador != 100){
-            //RECUPERO AL DESARROLLADOR Y SUS ASISTENCIA
-            $query = Trabajo::where('idProgramador', '=', $id_desarrollador)->whereMonth('fechaCarga', '=', $mes)->whereYear('fechaCarga', '=', $anio)->orderBy('fechaCarga', 'desc');
+            //RECUPERO AL DESARROLLADOR Y SUS TRABAJO
+            $query = Trabajo::where('idProgramador', '=', $id_desarrollador);
         }
         else{
-            //QUIEREN VER TODOS LOS ASISTENCIA
-            $query = Trabajo::whereMonth('fechaCarga', '=', $mes)->whereYear('fechaCarga', '=', $anio)->orderBy('fechaCarga', 'desc');
+            //QUIEREN VER TODOS LOS TRABAJOS
+            $query = Trabajo::all();
         }
 
-        $trabajos = $query->paginate(30);
+        //SIGO FILTRANDO LA CONSULTA POR CLIENTE (SI ES QUE SE REQUIERE)
+        if($id_cliente != 100000){
+            $query = $query->where('idCliente', '=', $id_cliente);
+        }
 
-        return view('trabajos.index', array('trabajos' => $trabajos, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'mes' => $mes, 'anio' => $anio));
+        //SIGO FILTRANDO LA CONSULTA POR ESTADO (SI ES QUE SE REQUIERE)
+        if($id_estado != 100000){
+            $query = $query->where('idEstado', '=', $id_estado);
+        }
+
+        $trabajos = $query->whereBetween('fechaCarga', array($desde, $hasta))->orderBy('fechaCarga', 'desc')->paginate(30);
+
+        return view('trabajos.index', array('trabajos' => $trabajos, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'clientes' => $clientes, 'id_cliente' => $id_cliente, 'estados' => $estados, 'id_estado' => $id_estado, 'desde' => $desde, 'hasta' => $hasta));
     }
 
     /**
@@ -139,7 +172,8 @@ class TrabajoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $trabajo = Trabajo::findOrFail($id);
+        return View::make('trabajos.edit', array('trabajo' => $trabajo, 'desarrolladores' => Funciones::getDesarrolladoresSelect(), 'clientes' => Funciones::getClientesSelect(), 'sistemas' => Funciones::getSistemasSelect(), 'estados' => Funciones::getEstadosSelect()));
     }
 
     /**
@@ -151,7 +185,20 @@ class TrabajoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $trabajo = Trabajo::findOrFail($id);
+
+        $this->validarTrabajo($request);
+
+        $input = $request->all();
+        //LE DOY A LAS FECHAS UN FORMATO QUE LA BD ENTIENDA
+        $fecha = Carbon::createFromFormat('d-m-Y', $request->input('fechaCarga'))->startOfDay();
+        $input['fechaCarga'] = $fecha;
+
+        $trabajo->fill($input)->save();
+
+        Session::flash('flash_message', 'Trabajo editado con éxito!');
+
+        return redirect('/trabajos');
     }
 
     /**

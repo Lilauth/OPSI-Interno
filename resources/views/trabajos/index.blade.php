@@ -33,17 +33,27 @@
                                 'class' => 'navbar-form navbar-left pull-right',
                                 'role' => 'search'                                
                                  ]) !!}
-                 <!--SELECCIÓN DE AÑO PARA FILTRAR, ACTUAL POR DEFECTO-->
-                 {!! Form::label('Anio', 'A&ntilde;o:', ['class' => 'control-label']) !!}
-                 {!! Form::selectYear('anio', (((new \Carbon\Carbon())->year) - 3), ((new \Carbon\Carbon())->year), $anio, ['method' => 'GET', 'class' => 'form-control']) !!}
+                 <!--SELECCIÓN DE FECHA DESDE FILTRAR, UN MES ATRÁS POR DEFECTO-->
+                 {!! Form::label('Desde', 'Desde:', ['class' => 'control-label']) !!}
+                 {!! Form::text('desde', \Carbon\Carbon::now()->subMonth()->format('d-m-Y'), ['class' => 'datepicker form-control']) !!}
 
-                 <!--SELECCIÓN DE MES PARA FILTRAR, ACTUAL POR DEFECTO-->
-                 {!! Form::label('Mes', 'Mes:', ['class' => 'control-label']) !!}
-                 {!! Form::selectMonth('mes', $mes, ['method' => 'GET', 'class' => 'form-control']) !!}
+                 <!--SELECCIÓN DE FECHA HASTA PARA FILTRAR, FECHA ACTUAL POR DEFECTO-->
+                 {!! Form::label('Hasta', 'Hasta:', ['class' => 'control-label']) !!}
+                 {!! Form::text('hasta', \Carbon\Carbon::now()->format('d-m-Y'), ['class' => 'datepicker form-control']) !!}
+
+                <br><br>
+
+                 <!--SELECCIÓN DE CLIENTE-->
+                 {!! Form::label('Cliente', 'Cliente:', ['class' => 'control-label']) !!}
+                 {!! Form::select('cliente', $clientes, $id_cliente, ['class' => 'form-control']) !!}
 
                  <!--SELECCIÓN DE DESARROLLADOR, LOGUEADO POR DEFECTO-->
-                 {!! Form::label('Desarrollador', 'Desarrollador:', ['class' => 'control-label']) !!}
+                 {!! Form::label('Responsable', 'Responsable:', ['class' => 'control-label']) !!}
                  {!! Form::select('responsable', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}
+
+                 <!--SELECCIÓN DE ESTADO-->
+                 {!! Form::label('Estado', 'Estado:', ['class' => 'control-label']) !!}
+                 {!! Form::select('estado', $estados, $id_estado, ['class' => 'form-control']) !!}
                     <button type="submit" class="btn btn-default">Buscar</button>
                  {!! Form::close() !!} 
             </div>        
@@ -68,7 +78,7 @@
                                 <td>
                                     {!! Form::open([
                                         'method' => 'GET',
-                                        'route' => ['trabajos.edit', $trabajo->idtrabajo]                                
+                                        'route' => ['trabajos.edit', $trabajo->idTrabajo]                                
                                     ]) !!}
                                       <div>
                                         <button type="submit" class="btn btn-primary">
@@ -82,7 +92,7 @@
                                     {!! Form::open([
                                         'method' => 'DELETE',
                                         'route' => ['trabajos.destroy', $trabajo->idTrabajo],
-                                        'onsubmit' => 'return ConfirmDelete()'                  
+                                        'onsubmit' => 'return ConfirmDelete()'
                                     ]) !!}
                                     <div>
                                        <button type="submit" class="btn btn-danger">
@@ -113,5 +123,11 @@
         $("select[name='responsable']").focus();
     });
 
+    </script>
+
+    <script>
+        $(function() {
+            $( ".datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
+        });
     </script>
 @endsection
