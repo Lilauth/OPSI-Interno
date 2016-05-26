@@ -5,36 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>OPSI - Sistema Interno</title>
+    <title>Laravel</title>
 
     <!-- Fonts -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>    
+    <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700" rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-    <link href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css" rel="stylesheet">
-
-    <!--IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
-    <script src="https://www.google-analytics.com/analytics.js" async=""></script><script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
-    <script src="{{ asset('jquery-timepicker/lib/site.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('jquery-timepicker/lib/site.css') }}">
-
-    <script src="{{ asset('jquery-timepicker/lib/bootstrap-datepicker.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('jquery-timepicker/lib/bootstrap-datepicker.css') }}">
-
-    <script src="{{ asset('jquery-timepicker/jquery.timepicker.js') }}"></script>
-    <link rel="stylesheet" href="{{ asset('jquery-timepicker/jquery.timepicker.css') }}">
-    <!--FIN IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
-
-    <!--IMPORTACIÓN DE COMPONENTES COLORPICKER-->
-    <script src="{{ asset('bp-colorpicker/dist/js/bootstrap-colorpicker.js') }}"></script>    
-    <link rel="stylesheet" href="{{ asset('bp-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
-    <!--FIN IMPORTACIÓN DE COMPONENTES COLORPICKER-->
-
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
+
     <style>
         body {
             font-family: 'Lato';
@@ -44,7 +24,7 @@
             margin-right: 6px;
         }
     </style>
-    @yield('headAditionals')
+
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
@@ -99,6 +79,29 @@
     </nav>
 
     @yield('content')
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   
+    {{-- <script src="{{ elixir('js/app.js') }}"></script> --}} 
+    
+    <!--IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
+    <script src="https://www.google-analytics.com/analytics.js" async=""></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="{{ asset('jquery-timepicker/lib/site.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery-timepicker/lib/site.css') }}">
+
+    <script src="{{ asset('jquery-timepicker/lib/bootstrap-datepicker.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery-timepicker/lib/bootstrap-datepicker.css') }}">
+
+    <script src="{{ asset('jquery-timepicker/jquery.timepicker.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('jquery-timepicker/jquery.timepicker.css') }}">
+    <!--FIN IMPORTACIÓN DE COMPONENTES TIMEPICKER-->
+
+    <!--IMPORTACIÓN DE COMPONENTES COLORPICKER-->
+    <script src="{{ asset('bp-colorpicker/dist/js/bootstrap-colorpicker.js') }}"></script>    
+    <link rel="stylesheet" href="{{ asset('bp-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
+    <!--FIN IMPORTACIÓN DE COMPONENTES COLORPICKER-->
     @yield('scripts')
 </body>
 </html>
