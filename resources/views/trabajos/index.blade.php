@@ -71,10 +71,15 @@
                     </thead>
                     <tbody>
                         @foreach ($trabajos as $trabajo)
-                            <tr>
+                            <tr style="background-color:{{ ($trabajo->estado->codColor) }}">
                                 <td class="table-text"><div>{{ (new \Carbon\Carbon($trabajo->fecha))->format('j F Y') }}</div></td>
                                 <td class="table-text"><div>{{ $trabajo->PedidaPor }}</div></td>
-                                <td class="table-text"><div>{{ $trabajo->cliente->NombreCliente }}</div></td>                              <td class="table-text"><div>{{ $trabajo->estado->Estado }}</div></td>
+                                <td class="table-text"><div>{{ $trabajo->cliente->NombreCliente }}</div></td>                              <td class="table-text">
+                                    <div>
+                                        {{ $trabajo->estado->Estado }} 
+                                        <span class="badge" style="background-color:{{ ($trabajo->estado->codColor) }}">   </span>
+                                    </div>
+                                </td>
                                 <td>
                                     {!! Form::open([
                                         'method' => 'GET',
