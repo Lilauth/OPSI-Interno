@@ -12,7 +12,6 @@
         </div>
     @endif 
      <!-- Current asistencia -->
-    @if (count($asistencias) > 0)
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h1>Asistencias</h1>                    
@@ -147,7 +146,6 @@
                 </div>
             </div>                
         </div>
-    @endif
     </div>    
 </div>
 

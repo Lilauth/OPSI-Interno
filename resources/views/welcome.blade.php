@@ -8,7 +8,7 @@
                 <div class="panel-heading">Bienvenido al Sistema Interno</div>
 
                 <div class="panel-body">
-                    Por ahora, agenda y ABM de Clientes. Mensajes y ABM de mensajes.
+                    Por ahora, agenda y ABM de Clientes. Mensajes y ABM de mensajes. Asistencias, Trabajos, Estados de Trabajos, Sistemas, y Creciendo!!!
                 </div>
             </div>
         </div>

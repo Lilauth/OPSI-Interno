@@ -93,27 +93,25 @@ class TrabajoController extends Controller
                 $id_desarrollador = 100;  
             }    
         }
+
         //A ESTA ALTURA IDDESARROLLADOR VALE 100 = TODOS O EL ID DE UN DESARROLLADOR
+        $matchThese = [];
         if($id_desarrollador != 100){
             //RECUPERO AL DESARROLLADOR Y SUS TRABAJO
-            $query = Trabajo::where('idProgramador', '=', $id_desarrollador);
-        }
-        else{
-            //QUIEREN VER TODOS LOS TRABAJOS
-            $query = Trabajo::all();
+            $matchThese = ['idProgramador' => $id_desarrollador];
         }
 
         //SIGO FILTRANDO LA CONSULTA POR CLIENTE (SI ES QUE SE REQUIERE)
         if($id_cliente != 100000){
-            $query = $query->where('idCliente', '=', $id_cliente);
+            $matchThese = ['idCliente' => $id_cliente];
         }
 
         //SIGO FILTRANDO LA CONSULTA POR ESTADO (SI ES QUE SE REQUIERE)
         if($id_estado != 100000){
-            $query = $query->where('idEstado', '=', $id_estado);
+            $matchThese =['idEstado' => $id_estado];
         }
 
-        $trabajos = $query->whereBetween('fechaCarga', array($desde, $hasta))->orderBy('fechaCarga', 'desc')->paginate(30);
+        $trabajos = Trabajo::where($matchThese)->whereBetween('fechaCarga', array($desde, $hasta))->orderBy('fechaCarga', 'desc')->paginate(30);
 
         return view('trabajos.index', array('trabajos' => $trabajos, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'clientes' => $clientes, 'id_cliente' => $id_cliente, 'estados' => $estados, 'id_estado' => $id_estado, 'desde' => $desde, 'hasta' => $hasta));
     }
