@@ -23,11 +23,24 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+
+        .affix {
+            top: 0;
+            width: 100%;
+        }
+        .affix + .container-fluid {
+            padding-top: 70px;
+        }
     </style>
 
 </head>
 <body id="app-layout">
-    <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid" style="text-align:center;height:80px;">
+      <h1>OPSI, Optimizaci&oacute;n de Sistemas</h1>
+    </div>
+
+    <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
         <div class="container">
             <div class="navbar-header">
 
