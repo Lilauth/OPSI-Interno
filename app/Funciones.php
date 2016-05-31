@@ -40,6 +40,16 @@ class Funciones
         return $Sistemas_sel;
     }
 
+    public static function getTrabajosSelect(){
+        $Trabajos = DB::table('Trabajos')->select(DB::raw('SUBSTRING(Descripcion, 0, 100) AS Descripcion, idTrabajo'))->orderBy('Descripcion')->get();                        
+        $Trabajos_sel = array();
+        foreach($Trabajos as $des){
+            $Trabajos_sel[$des->idTrabajo] = $des->Descripcion;
+        }
+
+        return $Trabajos_sel;
+    }
+
     public static function getEstadosSelect(){
         $Estados = DB::table('EstadoTrabajo')->select('Estado', 'idEstado')->orderBy('Estado')->get();                        
         $Estados_sel = array();
@@ -68,5 +78,4 @@ class Funciones
 
         return $totales;
     }
-
 }

@@ -10,6 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Funciones;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,3 +25,4 @@ Route::resource('asistencias', 'AsistenciaController');
 Route::resource('estadostrabajo', 'EstadoTrabajoController');
 Route::resource('sistemas', 'SistemaController');
 Route::resource('trabajos', 'TrabajoController');
+Route::resource('tareasdet', 'TareaDetController');

@@ -8,7 +8,8 @@ class TareaDet extends Model
 {
     public $timestamps = false;
     protected $table = 'TareaDet';
-    protected $fillable = ['idCliente', 'Descripcion', 'cantHoras', 'idTrabajo'];     
+    protected $primaryKey = 'idTareaDet';    
+    protected $fillable = ['idAsistencia', 'idCliente', 'Descripcion', 'cantHoras', 'idTrabajo'];     
     protected $dates = ['cantHoras'];
     
     public function cliente()

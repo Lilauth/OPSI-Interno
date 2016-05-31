@@ -25,6 +25,6 @@ class Asistencia extends Model
 
     public function tareaDet()
     {
-        return $this->hasMany('App\Tarea', 'idAsistencia');
+        return $this->hasMany('App\TareaDet', 'idAsistencia');
     }
 }
