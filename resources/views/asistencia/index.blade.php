@@ -138,12 +138,12 @@
                                 </td>
                                 <td>
                                     <!-- TRIGGER THE MODAL WITH A BUTTON -->
-                                    <button type="button" class="btn btn-primary" id="myBtn{{ $asistencia->idAsistencia}}" data-toggle="modal" data-target="#myModal{{ $asistencia->idAsistencia}}">
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createModal{{ $asistencia->idAsistencia}}">
                                         <i class="fa fa-bolt"></i> Tarea
                                     </button>
 
                                     <!-- MODAL -->
-                                    <div class="modal fade" id="myModal{{ $asistencia->idAsistencia}}" role="dialog">
+                                    <div class="modal fade" id="createModal{{ $asistencia->idAsistencia}}" role="dialog">
                                         <div class="modal-dialog">
 
                                     <!-- MODAL CONTENT-->
@@ -222,9 +222,65 @@
                                     <td>&nbsp;</td>
                                     <td>&nbsp;</td>                        
                                     <td>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-pencil"></i> Edit
+                                        <!-- TRIGGER THE MODAL WITH A BUTTON -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal{{ $asistencia->idAsistencia}}">
+                                            <i class="fa fa-Pencil"></i> Edit
                                         </button>
+
+                                        <!-- MODAL -->
+                                        <div class="modal fade" id="editModal{{ $asistencia->idAsistencia}}" role="dialog">
+                                            <div class="modal-dialog">
+
+                                        <!-- MODAL CONTENT-->
+                                                <div class="modal-content">
+                                                    <!-- MODAL HEADER-->
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                         <h4 class="modal-title">Editar Tarea</h4>
+                                                    </div>
+                                                    <!-- MODAL BODY-->
+                                                    <div class="modal-body">
+                                                        {!! Form::model($tarea, [
+                                                            'method' => 'PATCH',
+                                                            'route' => ['tareasdet.update', $tarea->idTareaDet]
+                                                        ]) !!}
+
+                                                        <div class="form-group">
+                                                            {!! Form::hidden('idAsistencia', $asistencia->idAsistencia) !!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
+                                                            {!! Form::select('idCliente', $clientes, $tarea->idCliente, ['method' => 'GET', 'class' => 'form-control']) !!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::label('Trabajo', 'Trabajo:', ['class' => 'control-label']) !!}
+                                                            {!! Form::select('idTrabajo', $trabajos, $tarea->idTrabajo, ['class' => 'form-control']) !!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::label('Descripcion', 'Descripci&oacute;n:', ['class' => 'control-label']) !!}
+                                                            {!! Form::textarea('Descripcion', $tarea->Descripcion, ['class' => 'form-control']) !!}
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            {!! Form::label('CantHoras', 'Cant. Horas:', ['class' => 'control-label']) !!}
+                                                            {!! Form::text('cantHoras', $tarea->cantHoras->format('H:i'), ['id' => 'debe', 'class' => 'cantHoras form-control']) !!}                     
+                                                        </div>
+
+                                                        {!! Form::submit('Aceptar', ['class' => 'btn btn-success'])  !!}
+
+                                                        <div class="pull-right">
+                                                            <a href="{{ route('asistencias.index') }}" class="btn btn-danger"></i>Cancel</a>
+                                                        </div>
+
+                                                        {!! Form::close() !!} 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     </td>
                                     <td>
                                         {!! Form::open([
@@ -268,18 +324,4 @@
             $('.cantHoras').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
         });
     </script>
-
-    @foreach ($asistencias as $asistencia)
-        <script>
-            $(document).ready(function(){
-                $("#myBtn{{ $asistencia->idAsistencia}}").click(function(){
-                    $("#myModal{{ $asistencia->idAsistencia}}").modal("show");
-                });
-                $("#myModal{{ $asistencia->idAsistencia}}").on('shown.bs.modal', function () {
-                    alert('The modal is fully shown.');
-                    //$("select[name='idCliente']").focus();
-                });
-            });
-        </script>
-    @endforeach
 @endsection

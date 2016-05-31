@@ -91,7 +91,7 @@ class TareaDetController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -103,7 +103,21 @@ class TareaDetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $tarea = TareaDet::findOrFail($id);
+
+        $this->validarTareaDet($request);
+
+        $input = $request->all();
+
+        //LE DOY A LAS FECHAS UN FORMATO QUE LA BD ENTIENDA
+        $cantHoras = Carbon::createFromFormat('H:i', $request->input('cantHoras'));
+        $input['cantHoras'] = $cantHoras;
+
+        $tarea->fill($input)->save();
+
+        Session::flash('flash_message', 'Tarea editada con éxito!');
+
+        return redirect('/asistencias');
     }
 
     /**
