@@ -40,6 +40,9 @@ class AsistenciaController extends Controller
         $desarrolladores_sel = Funciones::getDesarrolladoresSelect();
         $desarrolladores_sel[100] = '--TODOS--';
 
+        $clientes = Funciones::getClientesSelect();
+        $trabajos = Funciones::getTrabajosSelect();
+
         //SETEO EL MES
         if($request->get('mes')){
             $mes = $request->get('mes');
@@ -81,7 +84,7 @@ class AsistenciaController extends Controller
 
         $totales = Funciones::getTotalAsistencias($id_desarrollador, $anio, $mes);
 
-        return view('asistencia.index', array('asistencias' => $asistencias, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'mes' => $mes, 'anio' => $anio, 'totales' => $totales));
+        return view('asistencia.index', array('asistencias' => $asistencias, 'desarrolladores_sel' => $desarrolladores_sel, 'id_desarrollador' => $id_desarrollador, 'mes' => $mes, 'anio' => $anio, 'totales' => $totales, 'clientes' => $clientes, 'trabajos' => $trabajos));
     }
 
     /**

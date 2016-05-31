@@ -62,13 +62,13 @@
                         <th>Total Hs</th>
                         <th>Total Mm</th>                        
                         <th>Desarrollador</th>
-                        <!-- <th>&nbsp;</th>-->
+                        <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                     </thead>
                     <tbody>
                         @foreach ($asistencias as $asistencia)
-                            <tr data-toggle="collapse" data-target="#accordion{{$asistencia->idAsistencia}}" class="clickable">
+                            <tr data-toggle="collapse" data-target=".accordion{{$asistencia->idAsistencia}}" class="clickable">
                                 <td class="table-text"><div>{{ (new \Carbon\Carbon($asistencia->fecha))->format('j F Y') }}</div></td>
                                 <td class="table-text"><div>{{ (new \Carbon\Carbon($asistencia->desde))->format('H:i') }}</div></td>
                                 <td class="table-text">
@@ -119,7 +119,7 @@
                                     ]) !!}
                                       <div>
                                         <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-pencil"></i>Edit
+                                            <i class="fa fa-pencil"></i> Edit
                                         </button>
                                       </div>                                               
                                      {!! Form::close() !!}                                              
@@ -137,42 +137,109 @@
                                     {!! Form::close() !!}                                           
                                 </td>
                                 <td>
-                                    {!! Form::open([
-                                        'method' => 'GET',                                        
-                                        'route' => ['tareasdet.create', $asistencia->idAsistencia]                               
-                                    ]) !!}
-                                      <div>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-pencil"></i>Nueva Tarea
-                                        </button>
-                                      </div>                                               
-                                     {!! Form::close() !!}   
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div id="accordion{{$asistencia->idAsistencia}}" class="collapse">
-                                        <table class="table table-sm">
-                                            <head>
-                                                <th>Cliente</th>
-                                                <th>Descripcion</th>                                                
-                                                <th>&nbsp;</th>
-                                                <th>cant Horas</th>
-                                            </head>
-                                            <body>
-                                                @foreach ($asistencia->tareaDet as $tarea)
-                                                    <tr>
-                                                        <td>{{ $tarea->cliente->NombreCliente }}</td>
-                                                        <td>{{ $tarea->Descripcion }}</td>
-                                                        <td></td>
-                                                        <td>{{ (new \Carbon\Carbon($tarea->cantHoras))->format('H:i') }}</td>
-                                                    </tr>
-                                                @endforeach
-                                            </body>
-                                        </table>
+                                    <!-- TRIGGER THE MODAL WITH A BUTTON -->
+                                    <button type="button" class="btn btn-primary" id="myBtn{{ $asistencia->idAsistencia}}" data-toggle="modal" data-target="#myModal{{ $asistencia->idAsistencia}}">
+                                        <i class="fa fa-bolt"></i> Tarea
+                                    </button>
+
+                                    <!-- MODAL -->
+                                    <div class="modal fade" id="myModal{{ $asistencia->idAsistencia}}" role="dialog">
+                                        <div class="modal-dialog">
+
+                                    <!-- MODAL CONTENT-->
+                                            <div class="modal-content">
+                                                <!-- MODAL HEADER-->
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                     <h4 class="modal-title">Nueva Tarea</h4>
+                                                </div>
+                                                <!-- MODAL BODY-->
+                                                <div class="modal-body">
+                                                    {!! Form::open(['url' => 'tareasdet']) !!}
+
+                                                    <div class="form-group">
+                                                        {!! Form::hidden('idAsistencia', $asistencia->idAsistencia) !!}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
+                                                        {!! Form::select('idCliente', $clientes, null, ['method' => 'GET', 'class' => 'form-control']) !!}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        {!! Form::label('Trabajo', 'Trabajo:', ['class' => 'control-label']) !!}
+                                                        {!! Form::select('idTrabajo', $trabajos, null, ['class' => 'form-control']) !!}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        {!! Form::label('Descripcion', 'Descripci&oacute;n:', ['class' => 'control-label']) !!}
+                                                        {!! Form::textarea('Descripcion', null, ['class' => 'form-control']) !!}
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        {!! Form::label('CantHoras', 'Cant. Horas:', ['class' => 'control-label']) !!}
+                                                        {!! Form::text('cantHoras', '', ['id' => 'debe', 'class' => 'cantHoras form-control']) !!}                     
+                                                    </div>
+
+                                                    {!! Form::submit('Aceptar', ['class' => 'btn btn-success'])  !!}
+
+                                                    <div class="pull-right">
+                                                        <a href="{{ route('asistencias.index') }}" class="btn btn-danger"></i>Cancel</a>
+                                                    </div>
+
+                                                    {!! Form::close() !!} 
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr class="accordion{{$asistencia->idAsistencia}} collapse" style="background-color: white; color:grey; font-style: italic">
+                                <td>&nbsp;</td>
+                                <td><strong>Cliente</strong></td>
+                                <td><strong>Descripcion</strong></td>                                
+                                <td><strong>Horas</strong></td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>                        
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>                                    
+                            </tr>
+                            @foreach ($asistencia->tareaDet as $tarea)
+                                <tr class="accordion{{$asistencia->idAsistencia}} collapse" style="background-color: white; color:grey; font-style: italic">
+                                    <td>&nbsp;</td>
+                                    <td>
+                                        @if($tarea->cliente)
+                                            {{ $tarea->cliente->NombreCliente }}
+                                        @endif
+                                    </td>
+                                    <td>{{ $tarea->Descripcion }}</td>
+                                    <td>{{ (new \Carbon\Carbon($tarea->cantHoras))->format('H:i') }}</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>                        
+                                    <td>
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="fa fa-pencil"></i> Edit
+                                        </button>
+                                    </td>
+                                    <td>
+                                        {!! Form::open([
+                                            'method' => 'DELETE',
+                                            'route' => ['tareasdet.destroy', $tarea->idTareaDet],
+                                            'onsubmit' => 'return ConfirmDelete()'                  
+                                        ]) !!}
+                                        <div>
+                                           <button type="submit" class="btn btn-danger">Delete</button>
+                                        </div>  
+                                        {!! Form::close() !!} 
+                                    </td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>
@@ -189,9 +256,30 @@
 @section('scripts')
     <script type="text/javascript">
 
-    $(document).ready(function(){
-        $("select[name='desarrollador']").focus();
-    });
+        $(document).ready(function(){
+            $("select[name='desarrollador']").focus();
+        });
 
     </script>
+
+    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
+    <script>
+        $(function() {
+            $('.cantHoras').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
+        });
+    </script>
+
+    @foreach ($asistencias as $asistencia)
+        <script>
+            $(document).ready(function(){
+                $("#myBtn{{ $asistencia->idAsistencia}}").click(function(){
+                    $("#myModal{{ $asistencia->idAsistencia}}").modal("show");
+                });
+                $("#myModal{{ $asistencia->idAsistencia}}").on('shown.bs.modal', function () {
+                    alert('The modal is fully shown.');
+                    //$("select[name='idCliente']").focus();
+                });
+            });
+        </script>
+    @endforeach
 @endsection

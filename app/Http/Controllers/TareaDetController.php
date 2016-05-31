@@ -114,6 +114,9 @@ class TareaDetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarea = TareaDet::findOrFail($id);
+        $tarea->delete();
+
+        return redirect('/asistencias');
     }
 }
