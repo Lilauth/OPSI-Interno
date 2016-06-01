@@ -14,29 +14,34 @@
          <!-- Current Clients -->
             <div class="panel panel-default">
                 <div class="panel-heading">
-                     <h1>Clientes</h1>                    
-                </div>
-                <div>
-                {!! Form::open([
-                    'method' => 'GET',
-                    'route' => ['client.create'],
-                    'class' => 'navbar-form navbar-left pull-left'                              
-                    ]) !!}
+                     <h1>
+                        Clientes
+                        <div class="pull-right">
+                        {!! Form::open([
+                            'method' => 'GET',
+                            'route' => ['client.create'],
+                            'class' => 'navbar-form navbar-left pull-left'                              
+                            ]) !!}
 
-                    {!! Form::submit('Nuevo Cliente', ['class' => 'btn btn-primary']) !!}
-                    {!! Form::close() !!}           
-                </div> 
-                <div>                        
-                     {!! Form::open([
-                                    'method' => 'GET',
-                                    'route' => ['client.index'],
-                                    'class' => 'navbar-form navbar-left pull-right',
-                                    'role' => 'search'                                
-                                     ]) !!}
-                     {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nombre o Contacto']) !!}                        
-                        <button type="submit" class="btn btn-default">Buscar</button>
-                     {!! Form::close() !!} 
-                </div>        
+                            {!! Form::submit('Nuevo Cliente', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}           
+                        </div> 
+                    </h1>
+                </div>
+
+                {!! Form::open([
+                                'method' => 'GET',
+                                'route' => ['client.index'],
+                                'class' => 'navbar-form navbar-left pull-right',
+                                'role' => 'search'                                
+                                 ]) !!}
+                    <div class="panel-default">
+                        <div class="panel-body">
+                            {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nombre o Contacto']) !!}                        
+                            <button type="submit" class="btn btn-default">Buscar</button>
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
                 <div class="panel-body">
                     <table class="table table-striped task-table">
                         <thead>
