@@ -163,12 +163,12 @@
 
                                                     <div class="form-group">
                                                         {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
-                                                        {!! Form::select('idCliente', $clientes, null, ['method' => 'GET', 'class' => 'form-control']) !!}
+                                                        {!! Form::select('idCliente', $clientes, null, ['method' => 'GET', 'class' => 'form-control clientes']) !!}
                                                     </div>
 
                                                     <div class="form-group">
                                                         {!! Form::label('Trabajo', 'Trabajo:', ['class' => 'control-label']) !!}
-                                                        {!! Form::select('idTrabajo', $trabajos, null, ['class' => 'form-control']) !!}
+                                                        {!! Form::select('idTrabajo', ['0' => '--Seleccionar Cliente--'], null, ['class' => 'form-control trabajos']) !!}
                                                     </div>
 
                                                     <div class="form-group">
@@ -324,4 +324,6 @@
             $('.cantHoras').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
         });
     </script>
+
+    {!!Html::script('js/asistencias/trabajosCliente.js')!!}
 @endsection

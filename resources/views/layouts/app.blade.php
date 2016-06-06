@@ -71,6 +71,7 @@
                         <li><a href="{{ url('/login') }}">Iniciar Sesi&oacute;n</a></li>
                         <li><a href="{{ url('/register') }}">Registrarse</a></li>
                     @else
+<!--                        <li><a href="{{ url('/tareasdet') }}">Prueba DropDown</a></li>  -->
                         <li><a href="{{ url('/client') }}">Clientes</a></li>
                         <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
 

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Funciones;
+use App\Cliente;
+use App\Trabajo;
 use App\TareaDet;
 use Carbon\Carbon;
 
@@ -35,9 +37,36 @@ class TareaDetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+/*
+    public function pruebaDropdown(Request $request){
+        $trabajos = Trabajo::where('idCliente', $request->get('id'))->get();
+        return response()->json(
+            $trabajos->toArray()
+        );
+    }
+*/
+    public function trabajosCliente($id){
+        $trabajos = Trabajo::where('idCliente', $id)->get();
+
+        return response()->json(
+            $trabajos->toArray()
+        );
+    }
+
     public function index()
     {
-        //
+        $clientes = Funciones::getClientesSelect();
+
+        return view('tareasdet.index', array('clientes' => $clientes));
+    }
+
+    public function dropdown(Request $request)
+    {   
+        $input = $request->input('option');
+        $trabajos = Trabajo::where('idCliente', $input['idCliente']);
+
+        die('Llamado a dropdown!');
+        return Response::json($ciudades);
     }
 
     /**
