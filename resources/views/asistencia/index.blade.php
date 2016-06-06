@@ -96,7 +96,8 @@
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->hasta)) != (new \Carbon\Carbon()))
                                             {{
-                                                floor((new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) / 60)
+                                                \Carbon\Carbon::create(0, 0, 0, 
+                                                floor((new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) / 60), 0, 0)->format('H:i')
                                             }}
                                         @endif
                                     </div>
@@ -105,7 +106,8 @@
                                     <div>
                                         @if ((new \Carbon\Carbon($asistencia->hasta)) != (new \Carbon\Carbon()))
                                             {{
-                                                (new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) % 60
+                                                \Carbon\Carbon::create(0, 0, 0, 0,
+                                                (new \Carbon\Carbon($asistencia->hasta))->diffInMinutes((new \Carbon\Carbon($asistencia->desde))) % 60, 0)->format('H:i')
                                             }}
                                         @endif
                                     </div>
