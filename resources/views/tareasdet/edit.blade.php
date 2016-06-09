@@ -1,44 +1,52 @@
-<!--*****************************************************************************************-->
-<!--************ÉSTE TEMPLATE ESPERA UNA $asistencia Y UNA COLECCIÓN DE $clientes************-->
-<!--*****************************************************************************************-->
-
 <!-- MODAL -->
-<div class="modal fade" id="createModal" role="dialog">
+<div class="modal fade" id="editModal" role="dialog">
     <div class="modal-dialog">
 
-    <!-- MODAL CONTENT-->
+<!-- MODAL CONTENT-->
         <div class="modal-content">
             <!-- MODAL HEADER-->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title">Nueva Tarea</h4>
+                 <h4 class="modal-title">Editar Tarea</h4>
             </div>
             <!-- MODAL BODY-->
             <div class="modal-body">
-                {!! Form::open(['url' => 'tareasdet']) !!}
+                {!! Form::model($tarea, [
+                    'method' => 'PATCH',
+                    'id' => 'formEdit',
+                    'route' => ['tareasdet.update', $tarea->idTareaDet]
+                ]) !!}
 
                 <div class="form-group">
-                    {!! Form::text('idAsistencia', null, ['id' => 'asistenciaId_C']) !!}
+                    {!! Form::hidden('idAsistencia', null, ['id' => 'asistenciaId_E']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::hidden('idTarea', null, ['id' => 'tareaId']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::hidden('idTrabajo', null, ['id' => 'trabajoId_E']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('cliente', 'Cliente:', ['class' => 'control-label']) !!}
-                    {!! Form::select('idCliente', $clientes, 'null', ['method' => 'GET', 'class' => 'form-control', 'id' => 'clientesC']) !!}
+                    {!! Form::select('idCliente', $clientes, null, ['method' => 'GET', 'class' => 'form-control', 'id' => 'clientesE']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Trabajo', 'Trabajo:', ['class' => 'control-label']) !!}
-                    {!! Form::select('idTrabajo', ['0' => '--Seleccionar Cliente--'], null, ['class' => 'form-control', 'id' => 'trabajosC']) !!}
+                    {!! Form::select('idTrabajo', ['0' => '--Seleccionar Cliente--'], null, ['class' => 'form-control', 'id' => 'trabajosE']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Descripcion', 'Descripci&oacute;n:', ['class' => 'control-label']) !!}
-                    {!! Form::textarea('Descripcion', null, ['class' => 'form-control']) !!}
+                    {!! Form::textarea('Descripcion', null, ['class' => 'form-control', 'id' => 'tareaDescripcionE']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('CantHoras', 'Cant. Horas:', ['class' => 'control-label']) !!}
-                    {!! Form::text('cantHoras', '', ['id' => 'debe', 'class' => 'cantHoras form-control']) !!}                     
+                    {!! Form::text('cantHoras', null, ['id' => 'debe', 'class' => 'cantHoras form-control', 'id' => 'cantHorasE']) !!}                     
                 </div>
 
                 {!! Form::submit('Aceptar', ['class' => 'btn btn-success'])  !!}

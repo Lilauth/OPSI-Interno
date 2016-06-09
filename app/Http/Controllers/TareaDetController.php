@@ -37,19 +37,20 @@ class TareaDetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-/*
-    public function pruebaDropdown(Request $request){
-        $trabajos = Trabajo::where('idCliente', $request->get('id'))->get();
+
+    public function trabajosCliente(Request $request){
+        $trabajos = Trabajo::select('idTrabajo', 'DescCorta')->where('idCliente', $request->get('id'))->get();
+
         return response()->json(
             $trabajos->toArray()
         );
     }
-*/
-    public function trabajosCliente($id){
-        $trabajos = Trabajo::where('idCliente', $id)->get();
+
+    public function getTarea(Request $request){
+        $tarea = TareaDet::where('idTareaDet', $request->get('id'))->get();
 
         return response()->json(
-            $trabajos->toArray()
+            $tarea->toArray()
         );
     }
 
@@ -58,15 +59,6 @@ class TareaDetController extends Controller
         $clientes = Funciones::getClientesSelect();
 
         return view('tareasdet.index', array('clientes' => $clientes));
-    }
-
-    public function dropdown(Request $request)
-    {   
-        $input = $request->input('option');
-        $trabajos = Trabajo::where('idCliente', $input['idCliente']);
-
-        die('Llamado a dropdown!');
-        return Response::json($ciudades);
     }
 
     /**

@@ -27,4 +27,4 @@ Route::resource('sistemas', 'SistemaController');
 Route::resource('trabajos', 'TrabajoController');
 Route::resource('tareasdet', 'TareaDetController');
 Route::get('trabajosCliente', 'TareaDetController@trabajosCliente');
-//Route::get('dropdown', 'TareaDetController@pruebaDropdown');
+Route::get('getTarea', 'TareaDetController@getTarea');
