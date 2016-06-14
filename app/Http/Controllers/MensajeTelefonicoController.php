@@ -26,6 +26,16 @@ class MensajeTelefonicoController extends Controller
 
     /*funciones propias*/    
 
+    public function setVisto($id, $checked){
+        $mensaje = MensajeTelefonico::findOrFail($id);
+        $mensaje['visto'] = $checked;
+        $mensaje->save();
+
+        Session::flash('flash_message', 'Mensaje editado con éxito!');
+        
+        return redirect('/mensajes');
+    }
+
     private function getClientesSel(){
         $clientes_sel = Cliente::orderBy('NombreCliente')->lists('NombreCliente', 'IdCliente');
         $clientes_sel['0'] = 'Ninguna'; 

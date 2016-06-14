@@ -18,7 +18,7 @@
                 {!! Form::open(['url' => 'tareasdet']) !!}
 
                 <div class="form-group">
-                    {!! Form::text('idAsistencia', null, ['id' => 'asistenciaId_C']) !!}
+                    {!! Form::hidden('idAsistencia', null, ['id' => 'asistenciaId_C']) !!}
                 </div>
 
                 <div class="form-group">

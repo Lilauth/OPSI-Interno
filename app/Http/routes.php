@@ -28,3 +28,4 @@ Route::resource('trabajos', 'TrabajoController');
 Route::resource('tareasdet', 'TareaDetController');
 Route::get('trabajosCliente', 'TareaDetController@trabajosCliente');
 Route::get('getTarea', 'TareaDetController@getTarea');
+Route::get('setVisto/{id}&{checked}', 'MensajeTelefonicoController@setVisto');

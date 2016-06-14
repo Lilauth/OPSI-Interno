@@ -12,7 +12,8 @@
          <!-- Current Clients -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                         <h1>Mensajes Telef&oacute;nicos</h1>                    
+                        <h1>Mensajes Telef&oacute;nicos</h1>
+                        @include('layouts.spinner')
                     </div>
                     <div>
                         {!! Form::open([
@@ -40,7 +41,7 @@
 
                          {!! Form::label('Para', 'Para:', ['class' => 'control-label']) !!}                                    
                          {!! Form::select('para', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}                     
-                            <button type="submit" class="btn btn-default">Filtrar</button>
+                            <button type="submit" id="filtrar" class="btn btn-default">Filtrar</button>
                          {!! Form::close() !!} 
                     </div> 
                                         
@@ -50,7 +51,8 @@
                                 <th>Fecha</th>
                                 <th>Cliente</th>
                                 <th>Mensaje</th> 
-                                <th>Para</th>                               
+                                <th>Para</th>
+                                <th>Visto</th>
                                <!-- <th>&nbsp;</th>-->
                                 <th>&nbsp;</th>
                                 <th>&nbsp;</th>
@@ -61,7 +63,8 @@
                                         <td class="table-text"><div>{{ (new \Carbon\Carbon($mensaje->Fecha))->diffForHumans() }}</div></td>
                                         <td class="table-text"><div>{{ $mensaje->Cliente }}</div></td>
                                         <td class="table-text"><div>{{ $mensaje->Mensaje }}</div></td>                                       
-                                        <td class="table-text"><div>{{ $mensaje->desarrollador->NombreDesarrollador }}</div></td>                                       
+                                        <td class="table-text"><div>{{ $mensaje->desarrollador->NombreDesarrollador }}</div></td>
+                                        <td class="table/text"> {{ Form::checkbox('visto', $mensaje->idMensaje, $mensaje->visto, ['class' => 'form-control checkVisto', 'id' => $mensaje->idMensaje]) }} </td>                                       
                                         <!--Editar Mensaje-->
                                         <td>
                                             {!! Form::open([
@@ -111,4 +114,7 @@
     });
 
     </script>
+
+  {!!Html::script('js/mensajes/setVisto.js')!!}
+  {!!Html::script('js/spin/doSpin.js')!!}  
 @endsection

@@ -39,7 +39,7 @@ class TareaDetController extends Controller
      */
 
     public function trabajosCliente(Request $request){
-        $trabajos = Trabajo::select('idTrabajo', 'DescCorta')->where('idCliente', $request->get('id'))->get();
+        $trabajos = Trabajo::select('idTrabajo', 'DescCorta')->where('idCliente', $request->get('id'))->orderBy('DescCorta')->get();
 
         return response()->json(
             $trabajos->toArray()

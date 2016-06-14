@@ -125,6 +125,8 @@
     <script src="{{ asset('bp-colorpicker/dist/js/bootstrap-colorpicker.js') }}"></script>    
     <link rel="stylesheet" href="{{ asset('bp-colorpicker/dist/css/bootstrap-colorpicker.min.css') }}">
     <!--FIN IMPORTACIÓN DE COMPONENTES COLORPICKER-->
+    {!!Html::script('js/spin/spin.js')!!}
+    {!!Html::script('js/spin/spin.min.js')!!}    
     @yield('scripts')
 </body>
 </html>
