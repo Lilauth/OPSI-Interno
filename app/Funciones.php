@@ -82,4 +82,27 @@ class Funciones
 
         return $totales;
     }
+
+    public static function getHorasCliente($id_desarrollador, $desde, $hasta){
+        //CONSULTA BASE DE HORAS POR CLIENTE SIN FILTROS
+        $horas = DB::table('TareaDet')->selectRaw('idCliente, SUM(DATEPART(HOUR, cantHoras)) AS cantHoras')->join('Asistencia', 'TareaDet.idAsistencia', '=', 'Asistencia.idAsistencia')->groupBy('idCliente');
+
+        //AGREGAMOS FILTRO DE FECHAS (DESDE Y HASTA)
+        $horas = $horas->whereBetween('Asistencia.fecha', array($desde, $hasta));
+
+        //AREGAMOS FILTRO POR DESARROLLADOR (SI SE SOLICITA DEL SELECT)
+        if($id_desarrollador != 100){
+            $horas = $horas->where('idDesarrollador', $id_desarrollador);
+        }
+
+        //OBTENEMOS DE LA BD
+        $horas->lists('idCliente', 'CantHoras');
+
+        $horas_sel=array();
+        foreach ($horas as $key => $value){
+            $horas_sel[$key] = $value;
+        }
+
+        return $horas;
+    }
 }

@@ -26,6 +26,9 @@ Route::resource('estadostrabajo', 'EstadoTrabajoController');
 Route::resource('sistemas', 'SistemaController');
 Route::resource('trabajos', 'TrabajoController');
 Route::resource('tareasdet', 'TareaDetController');
+Route::resource('horascliente', 'InformesController@horasCliente');
+
+//AJAX
 Route::get('trabajosCliente', 'TareaDetController@trabajosCliente');
 Route::get('getTarea', 'TareaDetController@getTarea');
 Route::get('setVisto/{id}&{checked}', 'MensajeTelefonicoController@setVisto');
