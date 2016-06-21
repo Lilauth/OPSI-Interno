@@ -55,7 +55,7 @@
                         </thead>
                         <tbody>
                             @foreach ($clientes as $cliente)
-                                <tr>
+                                <tr style="background-color: {{ $cliente->nivel['codColor'] }}">
                                     <td class="table-text"><div>{{ $cliente->IdCliente }}</div></td>
                                     <td class="table-text"><div>{{ $cliente->NombreCliente }}</div></td>
                                     <td class="table-text"><div>{{ $cliente->Telefono }}</div></td>

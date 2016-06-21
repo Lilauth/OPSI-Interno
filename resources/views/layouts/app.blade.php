@@ -71,8 +71,15 @@
                         <li><a href="{{ url('/login') }}">Iniciar Sesi&oacute;n</a></li>
                         <li><a href="{{ url('/register') }}">Registrarse</a></li>
                     @else
-<!--                        <li><a href="{{ url('/tareasdet') }}">Prueba DropDown</a></li>  -->
-                        <li><a href="{{ url('/client') }}">Clientes</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                Clientes <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/client') }}">Listado de Clientes</a></li>
+                                <li><a href="{{ url('/niveles') }}">Niveles de un Cliente</a></li>
+                            </ul>
+                        </li>
                         <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
 
                         <li class="dropdown">

@@ -23,4 +23,9 @@ class Cliente extends Model
 
         $query->where('NombreCliente', 'like', '%' . $nombreCliente . '%')->orWhere('OtrosNombres', 'like', '%' . $nombreCliente . '%');
     }  
+
+    public function nivel()
+    {
+        return $this->belongsTo('App\Nivel', 'idNivel', 'idNivel');
+    }
 }

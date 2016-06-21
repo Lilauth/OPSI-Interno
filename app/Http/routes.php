@@ -26,6 +26,7 @@ Route::resource('estadostrabajo', 'EstadoTrabajoController');
 Route::resource('sistemas', 'SistemaController');
 Route::resource('trabajos', 'TrabajoController');
 Route::resource('tareasdet', 'TareaDetController');
+Route::resource('niveles', 'NivelesController');
 Route::resource('horascliente', 'InformesController@horasCliente');
 
 //AJAX
