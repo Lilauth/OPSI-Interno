@@ -15,6 +15,7 @@ use View;
 use Carbon\Carbon; 
 use Session;
 use Auth;
+use Mail;
 
 class MensajeTelefonicoController extends Controller
 {
@@ -127,8 +128,12 @@ class MensajeTelefonicoController extends Controller
         $this->validarMensaje($request);
 
         $input = $request->all();
-        
-        //dd($request->all());
+
+        $succes_message = 
+
+        if(isset($input['Mail'])){
+            $this->sendanemail($request);
+        }
 
         //le doy a la fecha un formato que la BD entienda
         $date = Carbon::createFromFormat('d-m-Y', $request->input('Fecha'));
@@ -139,6 +144,23 @@ class MensajeTelefonicoController extends Controller
         Session::flash('flash_message', 'Alta de mensaje exitosa!');
 
         return redirect('/mensajes');
+    }
+
+    private function sendanemail(Request $request){
+        $remitente = $request->input('Cliente');
+        $cliente =  Cliente::findOrFail($request->input('idCliente'));
+        $destinatario = Desarrollador::findOrFail($request->input('Para'));
+        $mensaje =  $request->input('Mensaje');
+
+        $data['content'] = $mensaje;
+        $data['remitente'] = $remitente;
+        $data['cliente'] = $cliente;
+        $data['destinatario'] = $destinatario;
+
+        Mail::send('emails.template', $data, function ($message){
+            $message->subject('Mensaje automático de Sistema Interno Opsi');
+            $message->to('openfg.soft@gmail.com');
+        });
     }
 
     /**

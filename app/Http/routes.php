@@ -28,8 +28,11 @@ Route::resource('trabajos', 'TrabajoController');
 Route::resource('tareasdet', 'TareaDetController');
 Route::resource('niveles', 'NivelesController');
 Route::resource('horascliente', 'InformesController@horasCliente');
+Route::resource('cajachica', 'InformesController@cajaChica');
+Route::resource('entradasalida', 'EntradaSalidaController');
 
 //AJAX
 Route::get('trabajosCliente', 'TareaDetController@trabajosCliente');
 Route::get('getTarea', 'TareaDetController@getTarea');
 Route::get('setVisto/{id}&{checked}', 'MensajeTelefonicoController@setVisto');
+Route::get('getMovement', 'EntradaSalidaController@getMovimiento');

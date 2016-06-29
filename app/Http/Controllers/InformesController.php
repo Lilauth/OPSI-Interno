@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Funciones;
 use App\Asistencia;
 use App\TareaDet;
+use App\EntradaSalida;
 use \Carbon\Carbon;
 
 use Auth;
@@ -59,5 +60,12 @@ class InformesController extends Controller
             ->get();
 
     	return view('informes.horasclientes', array('horas'=> $horas, 'desarrolladores' => $desarrolladores, 'id_desarrollador' => $id_desarrollador, 'desde' => $desde, 'hasta' => $hasta));
+    }
+
+    public function cajaChica(){
+        $entradas=EntradaSalida::where('Movimiento', '=', 'E')->orderBy('Fecha', 'DESC')->get();
+        $salidas=EntradaSalida::where('Movimiento', '=', 'S')->orderBy('Fecha', 'DESC')->get();
+
+        return view('informes.cajachica', array('entradas' => $entradas, 'salidas' => $salidas));
     }
 }

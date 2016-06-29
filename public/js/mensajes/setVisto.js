@@ -8,8 +8,6 @@ $(".checkVisto").on('change', function setVisto(){
 
 		success:  function (data)
 		{
-			$('#Searching_Modal').modal('show');
-			doSpin();
 			$("#filtrar").click();
 		}
 	});

@@ -40,10 +40,7 @@ $(document).on("click", ".btn-edit-tarea", function () {
 			$("#trabajoId_E").val(tarea[0].idTrabajo);			
 			$("#tareaDescripcionE").val(tarea[0].Descripcion);
 			$("#cantHorasE").attr("value", tarea[0].cantHoras.substring(11, 16));
-			$("#clientesE").val(tarea[0].idCliente).change();/*.done(function() {
-			    $("#trabajosE").val(tarea[0].idTrabajo);
-			});*/
-//			$("#trabajosE").val(tarea[0].idTrabajo);
+			$("#clientesE").val(tarea[0].idCliente).change();
 		}
 	});
 });

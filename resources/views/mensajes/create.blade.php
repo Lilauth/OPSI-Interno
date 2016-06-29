@@ -44,10 +44,10 @@
                     {!! Form::textarea('Mensaje', null, ['class' => 'form-control']) !!}
                 </div>
 
-                <!--  <div class="form-group">
-                    {!! Form::label('Visto', 'Visto', ['class' => 'control-label']) !!}
-                    {!! Form::checkbox('Visto', '1', false) !!}
-                  </div>  -->                            
+                <div class="form-group">
+                    {!! Form::label('Mail', 'Enviar un email', ['class' => 'control-label']) !!}
+                    {!! Form::checkbox('Mail', null, false, ['class' => 'form-control']) !!}
+                </div>
 
                 {!! Form::submit('Accept', ['class' => 'btn btn-success']) !!}
 
