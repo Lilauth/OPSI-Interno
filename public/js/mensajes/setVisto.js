@@ -6,6 +6,8 @@ $(".checkVisto").on('change', function setVisto(){
 		url:  'setVisto/'+id+'&'+checked,
         type: 'GET',
 
+        beforeSend: doSpin(),
+
 		success:  function (data)
 		{
 			$("#filtrar").click();

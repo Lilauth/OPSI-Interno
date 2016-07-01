@@ -9,6 +9,15 @@ class Desarrollador extends Model
     public $timestamps = false;
     protected $primaryKey = 'idDesarrollador';
     protected $table = 'Desarrolladores';
+    protected $fillable = [
+        'NombreDesarrolador',
+        'CodigoDesarrollador',
+        'Telefono',
+        'Mail',
+        'Pagina',
+        'activo',
+        'user_id'
+    ]; 
 
 	public function user()
     {

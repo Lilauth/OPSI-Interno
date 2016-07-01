@@ -52,6 +52,13 @@ class MensajeTelefonicoController extends Controller
         ]);
     }
 
+    public function getMensajesCliente(Request $request){
+        $mensajes = Desarrollador::findOrFail($request->get('id'))->mensajesTelefonicos()->where('visto','0')->orderBy('Fecha', 'desc')->get();
+//        $mensajes = MensajeTelefonico::where('idDesarrollador', '=', $request->get('id'))->where('visto','0')->get();
+
+        return $mensajes->count();
+    }
+
     /*fin de funciones*/
     /**
      * Display a listing of the resource.
@@ -129,10 +136,11 @@ class MensajeTelefonicoController extends Controller
 
         $input = $request->all();
 
-        $succes_message = 
+        $succes_message = 'Alta de mensaje exitosa!';
 
         if(isset($input['Mail'])){
             $this->sendanemail($request);
+            $succes_message .= '. Se ha enviado un mail de manera exitosa tambi&eacute;n';
         }
 
         //le doy a la fecha un formato que la BD entienda
@@ -141,7 +149,7 @@ class MensajeTelefonicoController extends Controller
 
         MensajeTelefonico::create($input);
 
-        Session::flash('flash_message', 'Alta de mensaje exitosa!');
+        Session::flash('flash_message', $succes_message);
 
         return redirect('/mensajes');
     }
@@ -157,9 +165,9 @@ class MensajeTelefonicoController extends Controller
         $data['cliente'] = $cliente;
         $data['destinatario'] = $destinatario;
 
-        Mail::send('emails.template', $data, function ($message){
+        Mail::send('emails.template', $data, function ($message) use($destinatario){
             $message->subject('Mensaje automático de Sistema Interno Opsi');
-            $message->to('openfg.soft@gmail.com');
+            $message->to(($destinatario->idDesarrollador == 9)? $destinatario->Mail : 'openfg.soft@gmail.com');
         });
     }
 

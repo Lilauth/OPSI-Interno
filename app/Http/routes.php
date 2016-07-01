@@ -36,3 +36,4 @@ Route::get('trabajosCliente', 'TareaDetController@trabajosCliente');
 Route::get('getTarea', 'TareaDetController@getTarea');
 Route::get('setVisto/{id}&{checked}', 'MensajeTelefonicoController@setVisto');
 Route::get('getMovement', 'EntradaSalidaController@getMovimiento');
+Route::get('cantMensajes', 'MensajeTelefonicoController@getMensajesCliente');

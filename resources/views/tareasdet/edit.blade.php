@@ -11,10 +11,10 @@
             </div>
             <!-- MODAL BODY-->
             <div class="modal-body">
-                {!! Form::model($tarea, [
+                {!! Form::open([
                     'method' => 'PATCH',
                     'id' => 'formEdit',
-                    'route' => ['tareasdet.update', $tarea->idTareaDet]
+                    'route' => ['tareasdet.update', 1]
                 ]) !!}
 
                 <div class="form-group">

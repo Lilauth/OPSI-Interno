@@ -80,7 +80,7 @@
                                 <li><a href="{{ url('/niveles') }}">Niveles de un Cliente</a></li>
                             </ul>
                         </li>
-                        <li><a href="{{ url('/mensajes') }}">Mensajes</a></li>
+                        <li><a href="{{ url('/mensajes') }}" id=mensajes>Mensajes</a></li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -120,6 +120,8 @@
 
     @yield('content')
 
+    {!! Form::hidden('desarrollador', Auth::user()->desarrollador->idDesarrollador, ['class' => 'form-control', 'id' => 'desarrollador']) !!}
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}} 
@@ -144,6 +146,7 @@
     <!--FIN IMPORTACIÓN DE COMPONENTES COLORPICKER-->
     {!!Html::script('js/spin/spin.js')!!}
     {!!Html::script('js/spin/spin.min.js')!!}    
+    {!!Html::script('js/layouts/alertMensajes.js')!!}
     @yield('scripts')
 </body>
 </html>

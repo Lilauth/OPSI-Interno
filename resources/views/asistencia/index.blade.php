@@ -14,21 +14,23 @@
      <!-- Current asistencia -->
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h1>Asistencias</h1>                    
+                <h1>
+                    Asistencias
+                    <div class="pull-right">
+                        {!! Form::open([
+                            'method' => 'GET',
+                            'route' => ['asistencias.create'],
+                            'class' => 'navbar-form navbar-left pull-left'
+                            ]) !!}
+
+                            {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
+                            {!! Form::close() !!}   
+                    </div>
+                </h1>
 
                 <div>
                     <h3>Totales: {{ $totales['horas'] }} hs, {{ $totales['minutos'] }} min</h3>
                 </div>                 
-            </div>
-            <div>
-            {!! Form::open([
-                'method' => 'GET',
-                'route' => ['asistencias.create'],
-                'class' => 'navbar-form navbar-left pull-left'
-                ]) !!}
-
-                {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
-                {!! Form::close() !!}           
             </div>
             <div>                        
                 {!! Form::open([

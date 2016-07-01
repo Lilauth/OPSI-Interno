@@ -103,6 +103,7 @@
                 </div>         
         </div>    
     </div>
+  @include('layouts.spinner')
 
 @endsection
 
