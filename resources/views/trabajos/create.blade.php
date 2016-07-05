@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     {!! Form::label('FechaCarga', 'Fecha de Carga:', ['class' => 'control-label']) !!}
-                    {!! Form::text('fechaCarga', \Carbon\Carbon::now()->format('d-m-Y'), ['id' => 'datepicker', 'class' => 'form-control']) !!}
+                    {!! Form::text('fechaCarga', \Carbon\Carbon::now()->format('d-m-Y'), ['class' => 'form-control enfocar datepicker']) !!}
                 </div>
 
                 <div class="form-group">
@@ -71,16 +71,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            $("input[name='fechaCarga']").focus();
-        });
-    </script>
-
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>
+    {!!Html::script('js/funciones/focus.js')!!}
+    {!!Html::script('js/funciones/datepicker.js')!!}
 @endsection

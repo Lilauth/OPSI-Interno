@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
 	 
-	 <div class="panel panel-default">
-            <div class="panel-heading">
-                        <h1>Editar Nivel de Cliente</h1>                       
-            </div>
-     <div class="panel-body"> 
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h1>Editar Nivel de Cliente</h1>                       
+        </div>
+    <div class="panel-body"> 
         @include('partials.alerts.errors')
         <!-- success messages -->
         @if(Session::has('flash_message'))
@@ -23,7 +23,7 @@
 
 		<div class="form-group">
             {!! Form::label('Descripcion', 'Descripcion:', ['class' => 'control-label']) !!}
-            {!! Form::text('Descripcion', $nivel->Descripcion, ['class' => 'form-control']) !!}
+            {!! Form::text('Descripcion', $nivel->Descripcion, ['class' => 'form-control enfocar']) !!}
         </div>
 
         <div class="form-group">
@@ -47,26 +47,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='Descripcion']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $("#cp2").colorpicker({format: "hex",
-                colorSelectors: {
-                      'default': '#777777',
-                      'primary': '#337ab7',
-                      'success': '#5cb85c',
-                      'info': '#5bc0de',
-                      'warning': '#f0ad4e',
-                      'danger': '#d9534f'
-                  }
-            });
-        });
-    </script>
+    {!!Html::script('js/funciones/focus.js')!!}
+    {!!Html::script('js/funciones/colorpicker.js')!!}
 @endsection

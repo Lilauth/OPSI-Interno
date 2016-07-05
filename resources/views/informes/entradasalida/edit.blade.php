@@ -7,7 +7,7 @@
             <!-- MODAL HEADER-->
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title">Nueva Entrada</h4>
+                 <h4 class="modal-title">Editar Entrada-Salida</h4>
             </div>
             <!-- MODAL BODY-->
             <div class="modal-body">
@@ -18,7 +18,7 @@
                 ]) !!}
 
                 <div class="form-group">
-                    {!! Form::text('idEntradaSalida', null, ['id' => 'movimientoId']) !!}
+                    {!! Form::hidden('idEntradaSalida', null, ['id' => 'movimientoId']) !!}
                 </div>
 
                 <div class="form-group">
@@ -32,13 +32,13 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label']) !!}
+                    {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label datepicker']) !!}
                     {!! Form::text('Fecha', null, ['class' => 'form-control datepicker', 'id' => 'Fecha_E']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Hora', 'Hora:', ['class' => 'control-label']) !!}
-                    {!! Form::text('Hora', null, ['id' => 'desde', 'class' => 'Hora form-control', 'id' => 'Hora_E']) !!}                     
+                    {!! Form::text('Hora', null, ['id' => 'desde', 'class' => 'desdeHasta form-control', 'id' => 'Hora_E']) !!}                     
                 </div>
 
                 <div class="form-group">
@@ -67,3 +67,8 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+    {!!Html::script('js/funciones/datepicker.js')!!}
+    {!!Html::script('js/funciones/timepicker.js')!!}
+@endsection

@@ -120,7 +120,9 @@
 
     @yield('content')
 
-    {!! Form::hidden('desarrollador', Auth::user()->desarrollador->idDesarrollador, ['class' => 'form-control', 'id' => 'desarrollador']) !!}
+    {!! Form::hidden('desarrollador', 
+        ((Auth::user()) ? (Auth::user()->desarrollador->idDesarrollador) : -1), 
+        ['class' => 'form-control', 'id' => 'desarrollador']) !!}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>   

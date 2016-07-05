@@ -20,7 +20,7 @@
      
                 <div class="form-group">
                     {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label']) !!}
-                    {!! Form::text('fecha', \Carbon\Carbon::now()->format('d-m-Y'), ['id' => 'datepicker', 'class' => 'form-control']) !!}
+                    {!! Form::text('fecha', \Carbon\Carbon::now()->format('d-m-Y'), ['class' => 'form-control datepicker']) !!}
                 </div>
 
                 <div class="form-group">
@@ -36,17 +36,17 @@
 
                 <div class="form-group">
                     {!! Form::label('Hasta', 'Hasta:', ['class' => 'control-label']) !!}
-                    {!! Form::text('hasta', '', ['id' => 'hasta', 'class' => 'desdeHasta form-control']) !!}    
+                    {!! Form::text('hasta', '', ['id' => 'hasta', 'class' => 'desdeHasta form-control enfocar']) !!}    
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Debe', 'Debe:', ['class' => 'control-label']) !!}
-                    {!! Form::text('debe', '', ['id' => 'debe', 'class' => 'debeRecupera form-control']) !!}                     
+                    {!! Form::text('debe', '', ['id' => 'debe', 'class' => 'cantHoras form-control']) !!}                     
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Recupera', 'Recupera:', ['class' => 'control-label']) !!}
-                    {!! Form::text('recupera', '', ['id' => 'recupera', 'class' => 'debeRecupera form-control']) !!}    
+                    {!! Form::text('recupera', '', ['id' => 'recupera', 'class' => 'cantHoras form-control']) !!}    
                 </div>
 <!--FIN CONTROLES DE TIPO "TIMEPICKER"-->
 
@@ -63,31 +63,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='hasta']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.desdeHasta').timepicker({'timeFormat': 'H:i', 'step': 10, 'showDuration': true, 'scrollDefault': 'now'});
-        });
-    </script>
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.debeRecupera').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
-        });
-    </script>     
+    {!! Html::script('js/funciones/focus.js') !!}
+    {!! Html::script('js/funciones/datepicker.js') !!}
+    {!! Html::script('js/funciones/timepicker.js') !!}
 @endsection

@@ -17,9 +17,7 @@
             <h1>Caja Chica - Entradas
                 <div class="pull-right">
                     <!-- TRIGGER THE MODAL WITH A BUTTON -->
-                    <button type="button" id="btn-new-entrada" class="btn btn-success" data-toggle="modal" data-target="#createModal-Entrada">
-                    <i class="fa fa-bolt"></i> Agregar Entrada
-                    </button>
+                    {!! Form::button('Agregar Entrada <i class="fa fa-bolt"></i>', ['class' => 'btn btn-success', 'id' => 'btn-new-entrada', 'type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#createModal-Entrada']) !!}
                 </div>
             </h1>
         </div>
@@ -43,9 +41,8 @@
                             <td class="table-text"><div>{{ $entrada->Responsable }}</div></td>
                             <td class="table-text"><div>{{ number_format($entrada->Monto, 2) }}</div></td>
                             <td>
-                                <button type="button" data-id="{{$entrada->idEntradaSalida}}" class="btn btn-success editModal" data-toggle="modal" data-target="#editModal">
-                                <i class="fa fa-Pencil"></i> Edit
-                                </button>                                           
+                                <!-- TRIGGER THE MODAL WITH A BUTTON -->
+                                {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary editModal', 'data-id' => $entrada->idEntradaSalida, 'type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#editModal']) !!}
                             </td>
                             <!-- Task Delete Button -->
                             <td>
@@ -54,11 +51,9 @@
                                     'route' => ['entradasalida.destroy', $entrada->idEntradaSalida],
                                     'onsubmit' => 'return ConfirmDelete()'                  
                                 ]) !!}
-                                <div>
-                                   <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>Delete
-                                    </button>
-                                </div>  
+
+                                {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+
                                 {!! Form::close() !!}                                           
                             </td>
                         </tr>
@@ -72,9 +67,7 @@
             <h1>Caja Chica - Salidas
                 <div class="pull-right">
                     <!-- TRIGGER THE MODAL WITH A BUTTON -->
-                    <button type="button" id="btn-new-salida" class="btn btn-success" data-toggle="modal" data-target="#createModal-Entrada">
-                    <i class="fa fa-bolt"></i> Agregar Salida
-                    </button>
+                    {!! Form::button('Agregar Salida <i class="fa fa-bolt"></i>', ['class' => 'btn btn-success', 'id' => 'btn-new-salida', 'type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#createModal-Entrada']) !!}
                 </div>
             </h1>
         </div>
@@ -98,9 +91,8 @@
                             <td class="table-text"><div>{{ $salida->Responsable }}</div></td>
                             <td class="table-text"><div>{{ number_format($salida->Monto, 2) }}</div></td>
                             <td>
-                                <button type="button" data-id="{{$salida->idEntradaSalida}}" class="btn btn-success editModal" data-toggle="modal" data-target="#editModal">
-                                <i class="fa fa-Pencil"></i> Edit
-                                </button>                                           
+                                <!-- TRIGGER THE MODAL WITH A BUTTON -->
+                                {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary editModal', 'data-id' => $salida->idEntradaSalida, 'type' => 'submit', 'data-toggle' => 'modal', 'data-target' => '#editModal']) !!}
                             </td>
                             <!-- Task Delete Button -->
                             <td>
@@ -109,11 +101,9 @@
                                     'route' => ['entradasalida.destroy', $salida->idEntradaSalida],
                                     'onsubmit' => 'return ConfirmDelete()'                  
                                 ]) !!}
-                                <div>
-                                   <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>Delete
-                                    </button>
-                                </div>  
+
+                                {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+ 
                                 {!! Form::close() !!}                                           
                             </td>
                         </tr>
@@ -130,27 +120,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='Buscar']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $( ".datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.Hora').timepicker({'timeFormat': 'H:i', 'step': 10, 'showDuration': true, 'scrollDefault': 'now'});
-        });
-    </script>
-
     {!!Html::script('js/funciones/validateMoney.js')!!}
     {!!Html::script('js/cajachica/radioModals.js')!!}
 @endsection

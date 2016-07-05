@@ -23,7 +23,7 @@
 
 		<div class="form-group">
             {!! Form::label('Estado', 'Estado:', ['class' => 'control-label']) !!}
-            {!! Form::text('Estado', $estadotrabajo->Estado, ['class' => 'form-control']) !!}
+            {!! Form::text('Estado', $estadotrabajo->Estado, ['class' => 'form-control enfocar']) !!}
         </div>
 
         <div class="form-group">
@@ -47,26 +47,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='estado']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $("#cp2").colorpicker({format: "hex",
-                colorSelectors: {
-                      'default': '#777777',
-                      'primary': '#337ab7',
-                      'success': '#5cb85c',
-                      'info': '#5bc0de',
-                      'warning': '#f0ad4e',
-                      'danger': '#d9534f'
-                  }
-            });
-        });
-    </script>
+    {!! Html::script('js/funciones/focus.js') !!}
+    {!! Html::script('js/funciones/colorpicker.js') !!}
 @endsection

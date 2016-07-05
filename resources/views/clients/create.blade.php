@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     {!! Form::label('NombreCliente', 'Nombre:', ['class' => 'control-label']) !!}
-                    {!! Form::text('NombreCliente', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('NombreCliente', null, ['class' => 'form-control enfocar']) !!}
                 </div>
 
                 <div class="form-group">
@@ -66,11 +66,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='NombreCliente']").focus();
-    });
-
-    </script>
+    {!! Html::script('js/funciones/focus.js') !!}
 @endsection

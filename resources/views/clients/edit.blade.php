@@ -23,7 +23,7 @@
 
 		<div class="form-group">
                     {!! Form::label('NombreCliente', 'Nombre:', ['class' => 'control-label']) !!}
-                    {!! Form::text('NombreCliente', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('NombreCliente', null, ['class' => 'form-control enfocar']) !!}
                 </div>
 
                 <div class="form-group">
@@ -42,7 +42,7 @@
                              '1' => 'Prioritario',
                              '2' => 'Prioritario Nivel 2',
                              '3' => 'Sistema Periodo Adaptacion',
-                             '4' => 'Sin Nada']
+                             '4' => 'Sin Nada'], null, ['class' => 'form-control']
                      ) !!}
                  </div>
 
@@ -69,11 +69,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='NombreCliente']").focus();
-    });
-
-    </script>
+    {!! Html::script('js/funciones/focus.js') !!}
 @endsection

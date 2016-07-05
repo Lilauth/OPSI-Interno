@@ -1,7 +1,3 @@
-<!--*****************************************************************************************-->
-<!--************ÉSTE TEMPLATE ESPERA UNA $asistencia Y UNA COLECCIÓN DE $clientes************-->
-<!--*****************************************************************************************-->
-
 <!-- MODAL -->
 <div class="modal fade" id="createModal-Entrada" role="dialog">
     <div class="modal-dialog">
@@ -28,13 +24,13 @@
                 </div>
 
                 <div class="form-group">
-                    {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label']) !!}
+                    {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label datepicker']) !!}
                     {!! Form::text('Fecha', \Carbon\Carbon::now()->format('d-m-Y'), ['class' => 'form-control datepicker']) !!}
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Hora', 'Hora:', ['class' => 'control-label']) !!}
-                    {!! Form::text('Hora', \Carbon\Carbon::now()->format('H:i'), ['id' => 'desde', 'class' => 'Hora form-control']) !!}                     
+                    {!! Form::text('Hora', \Carbon\Carbon::now()->format('H:i'), ['id' => 'desde', 'class' => 'desdeHasta form-control']) !!}                     
                 </div>
 
                 <div class="form-group">
@@ -63,3 +59,8 @@
         </div>
     </div>
 </div>
+
+@section('scripts')
+    {!!Html::script('js/funciones/datepicker.js')!!}
+    {!!Html::script('js/funciones/timepicker.js')!!}
+@endsection

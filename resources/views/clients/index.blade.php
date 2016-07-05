@@ -28,20 +28,19 @@
                         </div> 
                     </h1>
                 </div>
-
-                {!! Form::open([
-                                'method' => 'GET',
-                                'route' => ['client.index'],
-                                'class' => 'navbar-form navbar-left pull-right',
-                                'role' => 'search'                                
-                                 ]) !!}
-                    <div class="panel-default">
-                        <div class="panel-body">
-                            {!! Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Nombre o Contacto']) !!}                        
-                            <button type="submit" class="btn btn-default">Buscar</button>
-                            {!! Form::close() !!}
-                        </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading"> 
+                        {!! Form::open([
+                            'method' => 'GET',
+                            'route' => ['client.index'],
+                            'class' => 'navbar-form',
+                            'role' => 'search'                                
+                        ]) !!}
+                        {!! Form::text('name', '', ['class' => 'form-control enfocar', 'placeholder' => 'Nombre o Contacto']) !!}                        
+                        {!! Form::submit('Buscar', ['class' => 'btn btn-default']) !!}
+                        {!! Form::close() !!}
                     </div>
+                </div>
                 <div class="panel-body">
                     <table class="table table-striped task-table">
                         <thead>
@@ -65,11 +64,9 @@
                                             'method' => 'GET',
                                             'route' => ['client.edit', $cliente->IdCliente]                                
                                         ]) !!}
-                                          <div>
-                                            <button type="submit" class="btn btn-primary">
-                                                <i class="fa fa-pencil"></i>Edit
-                                            </button>
-                                          </div>                                               
+
+                                        {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+
                                          {!! Form::close() !!}                                              
                                     </td>
                                     <!-- Task Delete Button -->
@@ -79,11 +76,9 @@
                                             'route' => ['client.destroy', $cliente->IdCliente],
                                             'onsubmit' => 'return ConfirmDelete()'                  
                                         ]) !!}
-                                        <div>
-                                           <button type="submit" class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>Delete
-                                            </button>
-                                        </div>  
+
+                                        {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+
                                         {!! Form::close() !!}                                           
                                     </td>
                                 </tr>
@@ -101,11 +96,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='name']").focus();
-    });
-
-    </script>
+    {!! Html::script('js/funciones/focus.js') !!}
 @endsection

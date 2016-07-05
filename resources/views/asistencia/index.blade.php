@@ -32,27 +32,29 @@
                     <h3>Totales: {{ $totales['horas'] }} hs, {{ $totales['minutos'] }} min</h3>
                 </div>                 
             </div>
-            <div>                        
-                {!! Form::open([
-                                'method' => 'GET',
-                                'route' => ['asistencias.index'],
-                                'class' => 'navbar-form navbar-left pull-right',
-                                'role' => 'search'                                
-                                 ]) !!}
-                 <!--SELECCIÓN DE AÑO PARA FILTRAR, ACTUAL POR DEFECTO-->
-                {!! Form::label('Anio', 'A&ntilde;o:', ['class' => 'control-label']) !!}
-                {!! Form::selectYear('anio', (((new \Carbon\Carbon())->year) - 3), ((new \Carbon\Carbon())->year), $anio, ['method' => 'GET', 'class' => 'form-control']) !!}
+            <div class="panel panel-info">
+                <div class="panel-heading">                      
+                    {!! Form::open([
+                                    'method' => 'GET',
+                                    'route' => ['asistencias.index'],
+                                    'class' => 'navbar-form',
+                                    'role' => 'search'                                
+                                     ]) !!}
+                     <!--SELECCIÓN DE AÑO PARA FILTRAR, ACTUAL POR DEFECTO-->
+                    {!! Form::label('Anio', 'A&ntilde;o:', ['class' => 'control-label']) !!}
+                    {!! Form::selectYear('anio', (((new \Carbon\Carbon())->year) - 3), ((new \Carbon\Carbon())->year), $anio, ['method' => 'GET', 'class' => 'form-control']) !!}
 
-                 <!--SELECCIÓN DE MES PARA FILTRAR, ACTUAL POR DEFECTO-->
-                {!! Form::label('Mes', 'Mes:', ['class' => 'control-label']) !!}
-                {!! Form::selectMonth('mes', $mes, ['method' => 'GET', 'class' => 'form-control']) !!}
+                     <!--SELECCIÓN DE MES PARA FILTRAR, ACTUAL POR DEFECTO-->
+                    {!! Form::label('Mes', 'Mes:', ['class' => 'control-label']) !!}
+                    {!! Form::selectMonth('mes', $mes, ['method' => 'GET', 'class' => 'form-control']) !!}
 
-                 <!--SELECCIÓN DE DESARROLLADOR, LOGUEADO POR DEFECTO-->
-                {!! Form::label('Desarrollador', 'Desarrollador:', ['class' => 'control-label']) !!}
-                {!! Form::select('desarrollador', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}
-                {!! Form::submit('Buscar', ['class' => 'btn btn-default'])  !!}
-                {!! Form::close() !!} 
-            </div>        
+                     <!--SELECCIÓN DE DESARROLLADOR, LOGUEADO POR DEFECTO-->
+                    {!! Form::label('Desarrollador', 'Desarrollador:', ['class' => 'control-label']) !!}
+                    {!! Form::select('desarrollador', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control enfocar']) !!}
+                    {!! Form::submit('Buscar', ['class' => 'btn btn-default'])  !!}
+                    {!! Form::close() !!} 
+                </div>
+            </div>
             <div class="panel-body">
                 <table class="table table-striped task-table">
                     <thead>
@@ -121,11 +123,9 @@
                                         'method' => 'GET',
                                         'route' => ['asistencias.edit', $asistencia->idAsistencia]                                
                                     ]) !!}
-                                      <div>
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fa fa-pencil"></i> Edit
-                                        </button>
-                                      </div>                                               
+
+                                    {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+
                                      {!! Form::close() !!}                                              
                                 </td>
                                 <!-- Task Delete Button -->
@@ -135,16 +135,14 @@
                                         'route' => ['asistencias.destroy', $asistencia->idAsistencia],
                                         'onsubmit' => 'return ConfirmDelete()'                  
                                     ]) !!}
-                                    <div>
-                                       <button type="submit" class="btn btn-danger">Delete</button>
-                                    </div>  
+
+                                    {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+
                                     {!! Form::close() !!}                                           
                                 </td>
                                 <td>
                                     <!-- TRIGGER THE MODAL WITH A BUTTON -->
-                                    <button type="button" class="btn btn-success btn-create-tarea" data-id="{{$asistencia->idAsistencia}}" data-toggle="modal" data-target="#createModal">
-                                    <i class="fa fa-bolt"></i> Tarea
-                                    </button>
+                                    {!! Form::button('Tarea <i class="fa fa-bolt"></i>', ['class' => 'btn btn-success btn-create-tarea', 'type' => 'submit', 'data-id' => $asistencia->idAsistencia,  'data-toggle' => 'modal', 'data-target' => '#createModal']) !!}
                                 </td>
                             </tr>
                             <tr class="accordion{{$asistencia->idAsistencia}} collapse" style="background-color: white; color:grey; font-style: italic">
@@ -176,10 +174,7 @@
                                     <td>&nbsp;</td>                        
                                     <td>
                                         <!-- TRIGGER THE MODAL WITH A BUTTON -->
-                                        <button type="button" class="btn btn-primary btn-edit-tarea" data-id="{{$tarea->idTareaDet}}" data-toggle="modal" data-target="#editModal">
-                                            <i class="fa fa-Pencil"></i> Edit
-                                        </button>
-                                    </td>
+                                        {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary btn-edit-tarea', 'type' => 'submit', 'data-id' => $tarea->idTareaDet,  'data-toggle' => 'modal', 'data-target' => '#editModal']) !!}
                                     </td>
                                     <td>
                                         {!! Form::open([
@@ -187,9 +182,9 @@
                                             'route' => ['tareasdet.destroy', $tarea->idTareaDet],
                                             'onsubmit' => 'return ConfirmDelete()'                  
                                         ]) !!}
-                                        <div>
-                                           <button type="submit" class="btn btn-danger">Delete</button>
-                                        </div>  
+
+                                        {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!}
+
                                         {!! Form::close() !!} 
                                     </td>
                                     <td>&nbsp;</td>
@@ -212,21 +207,8 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-        $(document).ready(function(){
-            $("select[name='desarrollador']").focus();
-        });
-
-    </script>
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.cantHoras').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
-        });
-    </script>
-
-    {!!Html::script('js/asistencias/tareasCreate.js')!!}
-    {!!Html::script('js/asistencias/tareasEdit.js')!!}
+    {!! Html::script('js/funciones/focus.js') !!}
+    {!! Html::script('js/funciones/timepicker.js') !!}
+    {!! Html::script('js/asistencias/tareasCreate.js') !!}
+    {!! Html::script('js/asistencias/tareasEdit.js') !!}
 @endsection

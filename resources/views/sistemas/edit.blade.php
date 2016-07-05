@@ -23,7 +23,7 @@
 
 		<div class="form-group">
             {!! Form::label('Descripcion', 'Descripci&oacute;n:', ['class' => 'control-label']) !!}
-            {!! Form::text('Descripcion', $sistema->Descripcion, ['class' => 'form-control']) !!}
+            {!! Form::text('Descripcion', $sistema->Descripcion, ['class' => 'form-control enfocar']) !!}
         </div>
 
 		<div class="pull-right">
@@ -39,11 +39,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='Descripcion']").focus();
-    });
-
-    </script>
+    {!!Html::script('js/funciones/focus.js')!!}
 @endsection

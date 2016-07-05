@@ -24,7 +24,7 @@
                 
                 <div class="form-group">
                     {!! Form::label('Fecha', 'Fecha:', ['class' => 'control-label']) !!}
-                    {!! Form::text('fecha', $asistencia->fecha->format('d-m-Y'), ['id' => 'datepicker', 'class' => 'form-control']) !!}
+                    {!! Form::text('fecha', $asistencia->fecha->format('d-m-Y'), ['class' => 'form-control enfocar datepicker']) !!}
                 </div>
 
                 <div class="form-group">
@@ -45,12 +45,12 @@
 
                 <div class="form-group">
                     {!! Form::label('Debe', 'Debe:', ['class' => 'control-label']) !!}
-                    {!! Form::text('debe', (($asistencia->debe == null) ? Null : ($asistencia->debe->format('H:i'))), ['id' => 'debe', 'class' => 'debeRecupera form-control']) !!}                     
+                    {!! Form::text('debe', (($asistencia->debe == null) ? Null : ($asistencia->debe->format('H:i'))), ['id' => 'debe', 'class' => 'cantHoras form-control']) !!}                     
                 </div>
 
                 <div class="form-group">
                     {!! Form::label('Recupera', 'Recupera:', ['class' => 'control-label']) !!}
-                    {!! Form::text('recupera', (($asistencia->recupera == null) ? Null : ($asistencia->recupera->format('H:i'))), ['id' => 'recupera', 'class' => 'debeRecupera form-control']) !!}    
+                    {!! Form::text('recupera', (($asistencia->recupera == null) ? Null : ($asistencia->recupera->format('H:i'))), ['id' => 'recupera', 'class' => 'cantHoras form-control']) !!}    
                 </div>
 <!--FIN CONTROLES DE TIPO "TIMEPICKER"-->
 
@@ -67,31 +67,7 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='fecha']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DESDE Y HASTA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.desdeHasta').timepicker({'timeFormat': 'H:i', 'step': 10, 'showDuration': true, 'scrollDefault': 'now'});
-        });
-    </script>   
-
-    <!--INICIALIZACIÓN DE TIMEPICKER DEBE Y RECUPERA (SON DE LA MISMA CLASE)-->
-    <script>
-        $(function() {
-            $('.debeRecupera').timepicker({'timeFormat': 'H:i', 'step': 10, 'scrollDefault': '00:00', 'minTime': '0:00am', 'maxTime': '08:00am',});
-        });
-    </script>    
+    {!! Html::script('js/funciones/focus.js') !!}
+    {!! Html::script('js/funciones/datepicker.js') !!}
+    {!! Html::script('js/funciones/timepicker.js') !!} 
 @endsection

@@ -14,11 +14,9 @@
      <!-- Current trabajo -->
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h1>Trabajos</h1>             
-        </div>
-        <table class="table table-responsive">
-            <thead style="background-color: #f5f5f5;">
-                <th>
+            <h1>
+                Trabajos
+                <div class="pull-right">
                     {!! Form::open([
                     'method' => 'GET',
                     'route' => ['trabajos.create'],
@@ -27,47 +25,38 @@
 
                     {!! Form::submit('Nuevo trabajo', ['class' => 'btn btn-primary']) !!}
                     {!! Form::close() !!}
-                </th>
-                <th>    
+                </div>
+            </h1>
+        </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">   
                     {!! Form::open([
-                                    'method' => 'GET',
-                                    'route' => ['trabajos.index'],
-                                    'class' => 'navbar-form navbar-left pull-right',
-                                    'role' => 'search'                                
-                                     ]) !!}
-                </th>
-                <th>
+                        'method' => 'GET',
+                        'route' => ['trabajos.index'],
+                        'class' => 'navbar-form',
+                        'role' => 'search'                                
+                    ]) !!}
                      <!--SELECCIÓN DE FECHA DESDE FILTRAR, UN MES ATRÁS POR DEFECTO-->
                     {!! Form::label('Desde', 'Desde:', ['class' => 'control-label']) !!}
                     {!! Form::text('desde', \Carbon\Carbon::now()->subMonth()->format('d-m-Y'), ['class' => 'datepicker form-control']) !!}
-                </th>
-                <th>
                      <!--SELECCIÓN DE FECHA HASTA PARA FILTRAR, FECHA ACTUAL POR DEFECTO-->
                     {!! Form::label('Hasta', 'Hasta:', ['class' => 'control-label']) !!}
                     {!! Form::text('hasta', \Carbon\Carbon::now()->format('d-m-Y'), ['class' => 'datepicker form-control']) !!}
 
-                </th>
-                <th>
                      <!--SELECCIÓN DE CLIENTE-->
                     {!! Form::label('Cliente', 'Cliente:', ['class' => 'control-label']) !!}
                     {!! Form::select('cliente', $clientes, $id_cliente, ['class' => 'form-control']) !!}
-                </th>
-                <th>
+                    <br><br>
                      <!--SELECCIÓN DE DESARROLLADOR, LOGUEADO POR DEFECTO-->
                     {!! Form::label('Responsable', 'Responsable:', ['class' => 'control-label']) !!}
-                    {!! Form::select('responsable', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control']) !!}
-                </th>
-                <th>
+                    {!! Form::select('responsable', $desarrolladores_sel, $id_desarrollador, ['class' => 'form-control enfocar']) !!}
                      <!--SELECCIÓN DE ESTADO-->
                     {!! Form::label('Estado', 'Estado:', ['class' => 'control-label']) !!}
                     {!! Form::select('estado', $estados, $id_estado, ['class' => 'form-control']) !!}
-                </th>
-                <th>
                     {!! Form::submit('Buscar', ['class' => 'btn btn-default'])  !!}
                     {!! Form::close() !!}
-                </th>
-            </thead>
-        </table>
+                </div>
+            </div>
         <div class="panel-body">
             <table class="table table-striped task-table">
                 <thead>
@@ -95,12 +84,8 @@
                                     'method' => 'GET',
                                     'route' => ['trabajos.edit', $trabajo->idTrabajo]                                
                                 ]) !!}
-                                  <div>
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fa fa-pencil"></i>Edit
-                                    </button>
-                                  </div>                                               
-                                 {!! Form::close() !!}                                              
+                                {!! Form::button('Edit <i class="fa fa-pencil"></i>', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}                                              
+                                {!! Form::close() !!}                                              
                             </td>
                             <!-- Task Delete Button -->
                             <td>
@@ -109,11 +94,7 @@
                                     'route' => ['trabajos.destroy', $trabajo->idTrabajo],
                                     'onsubmit' => 'return ConfirmDelete()'
                                 ]) !!}
-                                <div>
-                                   <button type="submit" class="btn btn-danger">
-                                        <i class="fa fa-trash"></i>Delete
-                                    </button>
-                                </div>  
+                                {!! Form::button('Delete <i class="fa fa-trash"></i>', ['class' => 'btn btn-danger', 'type' => 'submit']) !!} 
                                 {!! Form::close() !!}                                           
                             </td>
                         </tr>
@@ -130,17 +111,6 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("select[name='responsable']").focus();
-    });
-
-    </script>
-
-    <script>
-        $(function() {
-            $( ".datepicker" ).datepicker({dateFormat: 'd-m-Y'}).val();
-        });
-    </script>
+    {!!Html::script('js/funciones/focus.js')!!}
+    {!!Html::script('js/funciones/datepicker.js')!!}
 @endsection

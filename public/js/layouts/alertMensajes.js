@@ -8,7 +8,9 @@ $(document).ready(function() {
 
 		success:  function (mensajes)
 		{
-			$("#mensajes").append(' <span class="badge" style="background-color:#FF4357">' + mensajes + '</span>');
+			if(mensajes > 0){
+				$("#mensajes").append(' <span class="badge" style="background-color:#FF4357">' + mensajes + '</span>');
+			}
 		}
 	});
 });

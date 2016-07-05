@@ -20,7 +20,7 @@
 
                 <div class="form-group">
                     {!! Form::label('Descripcion', 'Descripci&oacute;n:', ['class' => 'control-label']) !!}
-                    {!! Form::text('Descripcion', null, ['class' => 'form-control']) !!}
+                    {!! Form::text('Descripcion', null, ['class' => 'form-control enfocar']) !!}
                 </div>                   
 
                 {!! Form::submit('Accept', ['class' => 'btn btn-success']) !!}
@@ -36,11 +36,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript">
-
-    $(document).ready(function(){
-        $("input[name='Descripcion']").focus();
-    });
-
-    </script>
+    {!!Html::script('js/funciones/focus.js')!!}
 @endsection
