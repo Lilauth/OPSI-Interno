@@ -17,19 +17,46 @@
                 <h1>
                     Asistencias
                     <div class="pull-right">
-                        {!! Form::open([
-                            'method' => 'GET',
-                            'route' => ['asistencias.create'],
-                            'class' => 'navbar-form navbar-left pull-left'
-                            ]) !!}
+                        <div class="table-responsive">
+                            <table class="grid" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4">
+                                            <h3>Debe/Recupera</h3>
+                                            <h6><strong>Debe:</strong> {{ $totales['horas_d'] }} hs, {{ $totales['minutos_d'] }} min</h6>
+                                            <h6><strong>Recupera:</strong> {{ $totales['horas_r'] }} hs, {{ $totales['minutos_r'] }} min</h6>
+                                        </td>
+                                        <td class="col-sm-12" ">
+                                            <h3>&nbsp;</h3>
+                                        </td>
+                                        <td colspan="4">
+                                            <h3>Balance</h3>
+                                            <h6> {{ $totales['balance_h'] }} hs, {{ $totales['balance_m'] }} min </h6>
+                                            <h6>&nbsp;</h6>
+                                        </td>
+                                        <td class="col-sm-12" ">
+                                            <h3>&nbsp;</h3>
+                                        </td>
+                                        <td colspan="4">
+                                            {!! Form::open([
+                                                'method' => 'GET',
+                                                'route' => ['asistencias.create'],
+                                                'class' => 'navbar-form navbar-left pull-left'
+                                                ]) !!}
 
-                            {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
-                            {!! Form::close() !!}   
+                                                {!! Form::submit('Nueva asistencia', ['class' => 'btn btn-primary']) !!}
+                                                {!! Form::close() !!}
+                                        </td>       
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div> 
                     </div>
                 </h1>
 
                 <div>
                     <h3>Totales: {{ $totales['horas'] }} hs, {{ $totales['minutos'] }} min</h3>
+
                 </div>                 
             </div>
             <div class="panel panel-info">
