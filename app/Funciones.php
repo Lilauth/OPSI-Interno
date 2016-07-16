@@ -68,7 +68,7 @@ class Funciones
     }
 
     public static function getTotalAsistencias($id_desarrollador, $anio, $mes){
-        $asistencias = Asistencia::select(DB::raw('idDesarrollador, ROUND(SUM(DATEDIFF(MINUTE, desde, hasta)) / 60, 2) AS horas, (SUM(DATEDIFF(MINUTE, desde, hasta)) % 60) AS minutos'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
+        $asistencias = Asistencia::select(DB::raw('idDesarrollador, round(isnull(sum(datediff(minute, desde, hasta)), 0) / 60, 2) AS horas, (isnull(sum(datediff(minute, desde, hasta)), 0) % 60) as minutos'))->where('idDesarrollador', $id_desarrollador)->whereRaw('datepart(year, fecha) = ? and datepart(month, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
 
         $deberecupera = Asistencia::select(DB::raw('idDesarrollador, (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60))as horas_d, 
     (isnull(sum(datepart(minute, debe)), 0) % 60) as minutos_d,
@@ -96,6 +96,12 @@ class Funciones
         if(empty($totales)){
             $totales['horas'] = 0;
             $totales['minutos'] = 0;
+            $totales['horas_d'] = 0;
+            $totales['minutos_d'] = 0;
+            $totales['horas_r'] = 0;
+            $totales['minutos_r'] = 0;
+            $totales['balance_h'] = 0;
+            $totales['balance_m'] = 0;
         }
 
         //llenamos el arreglo para la vista con los datos de horas y minutos de debe-recupera
@@ -115,8 +121,6 @@ class Funciones
             $totales['balance_h'] = 0;
             $totales['balance_m'] = 0;
         }
-
-//        dd($totales);
 
         return $totales;
     }
