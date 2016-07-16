@@ -70,21 +70,21 @@ class Funciones
     public static function getTotalAsistencias($id_desarrollador, $anio, $mes){
         $asistencias = Asistencia::select(DB::raw('idDesarrollador, ROUND(SUM(DATEDIFF(MINUTE, desde, hasta)) / 60, 2) AS horas, (SUM(DATEDIFF(MINUTE, desde, hasta)) % 60) AS minutos'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
 
-        $deberecupera = Asistencia::select(DB::raw('idDesarrollador, (sum(datepart(hour, debe)) + (sum(datepart(minute, debe)) / 60))as horas_d, 
-    (sum(datepart(minute, debe)) % 60) as minutos_d,
-    (sum(datepart(hour, recupera)) + (sum(datepart(minute, recupera)) / 60))as horas_r,
-    (sum(datepart(minute, recupera)) % 60) as minutos_r,
+        $deberecupera = Asistencia::select(DB::raw('idDesarrollador, (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60))as horas_d, 
+    (isnull(sum(datepart(minute, debe)), 0) % 60) as minutos_d,
+    (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))as horas_r,
+    (isnull(sum(datepart(minute, recupera)), 0) % 60) as minutos_r,
     case
-        when (sum(datepart(minute, recupera)) % 60) > (sum(datepart(minute, debe)) % 60) then
-            -1 + (sum(datepart(hour, debe)) + (sum(datepart(minute, debe)) / 60)) - (sum(datepart(hour, recupera)) + (sum(datepart(minute, recupera)) / 60))
+        when (isnull(sum(datepart(minute, recupera)), 0) % 60) > (isnull(sum(datepart(minute, debe)), 0) % 60) then
+            -1 + (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) - (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))
         else
-            (sum(datepart(hour, debe)) + (sum(datepart(minute, debe)) / 60)) - (sum(datepart(hour, recupera)) + (sum(datepart(minute, recupera)) / 60))
+            (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) - (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))
     end as balance_h,
     case
-        when (sum(datepart(minute, debe)) % 60) - (sum(datepart(minute, recupera)) % 60) < 0 then
-            60 + (sum(datepart(minute, debe)) % 60) - (sum(datepart(minute, recupera)) % 60)
+        when (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60) < 0 then
+            60 + (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60)
         else
-            (sum(datepart(minute, debe)) % 60) - (sum(datepart(minute, recupera)) % 60) 
+            (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60) 
     end as balance_m'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
 
         //llenamos el arreglo para la vista con los datos de horas y minutos de asistencias
@@ -112,7 +112,11 @@ class Funciones
             $totales['minutos_d'] = 0;
             $totales['horas_r'] = 0;
             $totales['minutos_r'] = 0;
+            $totales['balance_h'] = 0;
+            $totales['balance_m'] = 0;
         }
+
+//        dd($totales);
 
         return $totales;
     }
