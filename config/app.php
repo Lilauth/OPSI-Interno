@@ -158,6 +158,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        GeneaLabs\Phpgmaps\PhpgmapsServiceProvider::class,
 
     ],
 
@@ -208,6 +209,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Input' => Illuminate\Support\Facades\Input::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Gmaps' => GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade::class,
     ],
 
 ];

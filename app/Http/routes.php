@@ -12,11 +12,9 @@
 */
 use App\Funciones;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::auth();
+
+Route::get('/', ['as ' => 'gmaps', 'uses' => 'GmapsController@index']);
 
 Route::get('/home', 'HomeController@index');
 Route::resource('client', 'ClientController');

@@ -10,7 +10,8 @@
         "laravelcollective/html": "^5.2",
         "doctrine/dbal": "^2.5",
         "barryvdh/laravel-debugbar": "^2.2",
-        "swiftmailer/swiftmailer": "^5.4"
+        "swiftmailer/swiftmailer": "^5.4",
+        "genealabs/phpgmaps": "~0.3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -51,4 +52,5 @@
     "config": {
         "preferred-install": "dist"
     }
+
 }
