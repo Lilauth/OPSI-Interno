@@ -75,8 +75,8 @@ class Gmaps
 
     public static function setClientsMap()
     {
-        $config['center'] = '-34.92119690351052, -57.954511642456055';
-        $config['zoom'] = '13';
+        $config['center'] = '-34.93914082826864, -57.879066467285156';
+        $config['zoom'] = '12';
         \Gmaps::initialize($config);
 
     	$clientes = Cliente::all();
