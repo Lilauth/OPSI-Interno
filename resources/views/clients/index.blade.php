@@ -58,7 +58,11 @@
                                     <td class="table-text"><div>{{ $cliente->IdCliente }}</div></td>
                                     <td class="table-text"><div>{{ $cliente->NombreCliente }}</div></td>
                                     <td class="table-text"><div>{{ $cliente->Telefono }}</div></td>
-                                    <td class="table-text"><div>{{ $cliente->OtrosNombres }}</div></td>                                        
+                                    <td class="table-text"><div>{{ $cliente->OtrosNombres }}</div></td>
+                                    <td>
+                                        <!-- TRIGGER THE MODAL WITH A BUTTON -->
+                                        {!! Form::button('Show <i class="fa fa-eye"></i>', ['class' => 'btn btn-success btn-show-client', 'type' => 'submit', 'data-id' => $cliente->IdCliente,  'data-toggle' => 'modal', 'data-target' => '#showModal']) !!}
+                                    </td>                                       
                                     <td>
                                         {!! Form::open([
                                             'method' => 'GET',
@@ -92,9 +96,10 @@
             </div>
         </div>    
     </div>
-
+    @include('clients.show')
 @endsection
 
 @section('scripts')
     {!! Html::script('js/funciones/focus.js') !!}
+    {!! Html::script('js/clients/show.js') !!}
 @endsection

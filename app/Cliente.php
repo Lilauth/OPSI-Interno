@@ -15,7 +15,8 @@ class Cliente extends Model
         'OtrosNombres',
         'idNivel',
         'Mantenimiento',
-        'Observaciones'
+        'Observaciones',
+        'position'
     ]; 
 
     public function scopeNombreOContacto($query, $nombreCliente)

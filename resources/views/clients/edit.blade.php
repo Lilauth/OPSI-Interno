@@ -56,6 +56,12 @@
                     {!! Form::textarea('Observaciones', null, ['class' => 'form-control']) !!}
                 </div>
 
+                <div id="map">
+                    {!! Form::label('position', 'Direcci&oacute;n:', ['class' => 'control-label']) !!}
+                    {!! Form::hidden('position', null, ['class' => 'form-control', 'id' => 'position']) !!}
+                    {!! $map['html'] !!}
+                </div>
+
 		<div class="pull-right">
     		<a href="{{ route('client.index') }}" class="btn btn-danger"></i>Cancel</a>
 		</div>
@@ -70,4 +76,5 @@
 
 @section('scripts')
     {!! Html::script('js/funciones/focus.js') !!}
+    @include('gmaps.headscripts')
 @endsection

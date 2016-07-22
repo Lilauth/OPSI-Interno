@@ -1,27 +1,50 @@
-@extends('layouts.app')
+<!-- MODAL -->
+<div class="modal fade" id="showModal" role="dialog">
+    <div class="modal-dialog">
+<!-- MODAL CONTENT-->
+        <div class="modal-content">
+            <!-- MODAL HEADER-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Datos de Cliente</h4>
+            </div>
+            <!-- MODAL BODY-->
+            <div class="modal-body">
 
-@section('content')
-<div class="container">    
+                <div class="form-group">
+                    {!! Form::hidden('id', null, ['class' => 'control-label', 'id' => 'clienteId']) !!}
+                </div>
 
-	<h1>{{ $client->name }}</h1>
-	
-    @include('partials.alerts.js_confirm')
+                <div class="form-group">
+                    {!! Form::label('codigo', 'C&oacute;digo:', ['class' => 'control-label']) !!}
+                    {!! Form::label(null, null, ['id' => 'codigo']) !!}
+                </div>
 
-	<a href="{{ route('client.index') }}" class="btn btn-info"><i class="fa fa-arrow-left"></i>Clients List</a>
-	<a href="{{ route('client.edit', $client->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</a>    
+                <div class="form-group">
+                    {!! Form::label('nombre', 'Nombre:', ['class' => 'control-label']) !!}
+                    {!! Form::label(null, null, ['class' => 'control-label', 'id' => 'nombre']) !!}
+                </div>
 
- 		{!! Form::open([
-            'method' => 'DELETE',
-            'route' => ['client.destroy', $client->id],
-            'onsubmit' => 'return ConfirmDelete()'                  
-        ]) !!}
-        <div class="pull-right">
-            {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-        </div>  
-       <!-- <button class='btn btn-xs btn-danger' type='submit' data-toggle="modal" data-target="#confirmDelete" 
-                data-title="Delete Client" data-message='Are you sure you want to delete this client ?'>-->  
-       
-        {!! Form::close() !!}       
+                <div class="form-group">
+                    {!! Form::label('telefono', 'Tel&eacute;fono:', ['class' => 'control-label']) !!}
+                    {!! Form::label(null, null, ['class' => 'control-label', 'id' => 'telefono']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('observaciones', 'Observaciones:', ['class' => 'control-label']) !!}
+                    {!! Form::textarea(null, null, ['class' => 'control-label', 'id' => 'observaciones']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('otrosnombres', 'Otros Nombres:', ['class' => 'control-label']) !!}
+                    {!! Form::label(null, null, ['class' => 'control-label', 'id' => 'otrosnombres']) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::label('nivel', 'Nivel:', ['class' => 'control-label']) !!}
+                    {!! Form::label(null, null, ['class' => 'control-label', 'id' => 'nivel']) !!}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-@endsection

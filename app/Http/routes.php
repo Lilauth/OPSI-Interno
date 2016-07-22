@@ -10,14 +10,17 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-use App\Funciones;
+use App\Gmaps;
 
 Route::auth();
 
-Route::get('/', ['as ' => 'gmaps', 'uses' => 'GmapsController@index']);
+Route::get('/', function(){
+					return view('welcome', Gmaps::setMapWelcome());
+				});
 
 Route::get('/home', 'HomeController@index');
 Route::resource('client', 'ClientController');
+Route::resource('clientMap', 'ClientController@clientMap');
 Route::resource('mensajes', 'MensajeTelefonicoController');
 Route::resource('asistencias', 'AsistenciaController');
 Route::resource('estadostrabajo', 'EstadoTrabajoController');
@@ -35,3 +38,4 @@ Route::get('getTarea', 'TareaDetController@getTarea');
 Route::get('setVisto/{id}&{checked}', 'MensajeTelefonicoController@setVisto');
 Route::get('getMovement', 'EntradaSalidaController@getMovimiento');
 Route::get('cantMensajes', 'MensajeTelefonicoController@getMensajesCliente');
+Route::get('getCliente', 'ClientController@getCliente');

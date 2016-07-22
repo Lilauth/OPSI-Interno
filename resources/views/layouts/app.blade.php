@@ -77,6 +77,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ url('/client') }}">Listado de Clientes</a></li>
+                                <li><a href="{{ url('/clientMap') }}">Mapa de Clientes</a></li>
                                 <li><a href="{{ url('/niveles') }}">Niveles de un Cliente</a></li>
                             </ul>
                         </li>

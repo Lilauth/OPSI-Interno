@@ -51,7 +51,14 @@
                 <div class="form-group">
                     {!! Form::label('Observaciones', 'Observaciones:', ['class' => 'control-label']) !!}
                     {!! Form::textarea('Observaciones', null, ['class' => 'form-control']) !!}
-                </div>                
+                </div>
+
+                <div id="map">
+                    {!! Form::label('position', 'Direcci&oacute;n:', ['class' => 'control-label']) !!}
+                    {!! Form::hidden('position', null, ['class' => 'form-control', 'id' => 'position']) !!}
+                    {!! $map['html'] !!}
+                </div>
+
 
                 {!! Form::submit('Accept', ['class' => 'btn btn-success']) !!}
 
@@ -67,4 +74,5 @@
 
 @section('scripts')
     {!! Html::script('js/funciones/focus.js') !!}
+    @include('gmaps.headscripts')
 @endsection

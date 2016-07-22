@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Cliente;
+use App\Gmaps;
 use Session;
 
 class ClientController extends Controller
@@ -18,6 +19,20 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getCliente(Request $request)
+    {
+        $cliente = Cliente::where('IdCliente', $request->get('id'))->get();
+        return response()->json(
+            $cliente->toArray()
+        );
+    }
+
+    public function clientMap()
+    {
+        return view('clients.clientmap', Gmaps::setClientsMap());
+    }
+
     public function index(Request $request)
     {        
         $clientes = Cliente::nombreOContacto($request->get('name'))->orderBy('nombreCliente', 'asc')->paginate(30);        
@@ -33,10 +48,8 @@ class ClientController extends Controller
     {
         $clientes = Cliente::lists('NombreCliente', 'IdCliente');
 
-        return view('clients.create');       
-       
+        return view('clients.create', Gmaps::setMapToCreate());
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -55,6 +68,7 @@ class ClientController extends Controller
         ]);
 
         $input = $request->all();        
+
         Cliente::create($input);
 
         Session::flash('flash_message', 'Alta de Cliente exitosa!');
@@ -71,7 +85,7 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $client = Client::findOrFail($id);
+        $client = Cliente::findOrFail($id);
 
         return view('clients.show')->withClient($client);       
     }
@@ -86,7 +100,7 @@ class ClientController extends Controller
     {
         $cliente = Cliente::findOrFail($IdCliente);
 
-        return view('clients.edit')->withCliente($cliente);     
+        return view('clients.edit', Gmaps::setMapToEdit($cliente->position))->withCliente($cliente);     
     }
 
     /**
