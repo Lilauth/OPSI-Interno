@@ -9,6 +9,7 @@ $("#clientesE").on('change', function buscarTrabajos(){
 		success:  function (data)
 		{
 			var opciones = "";
+			opciones = opciones + ("<option value=-1> --Ninguno-- </option>");
 			$.each(data, function(key,value) {
 				opciones = opciones + ("<option value="+value.idTrabajo+">"+value.DescCorta+"</option>");
 			});
@@ -46,5 +47,5 @@ $(document).on("click", ".btn-edit-tarea", function () {
 });
 
 function setearTrabajo(idTrabajo){
-	$("#trabajosE").val(idTrabajo);
+		$("#trabajosE").val(idTrabajo);
 }
