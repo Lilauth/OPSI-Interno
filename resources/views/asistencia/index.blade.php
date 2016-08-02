@@ -34,7 +34,7 @@
                                         <td colspan="4">
                                             <h3>Balance</h3>
                                             <h6> 
-                                                @if (($totales['balance_h'] > 0)||($totales['balance_m'] > 0))
+                                                @if (($totales['balance_h'] > 0)&&($totales['balance_m'] >= 0))
                                                     <strong>Debe a&uacute;n: </strong>
                                                     {{ $totales['balance_h'] }} hs, {{ $totales['balance_m'] }} min
                                                 @elseif (($totales['balance_h'] == 0)&&($totales['balance_m'] == 0))

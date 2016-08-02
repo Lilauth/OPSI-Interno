@@ -14,7 +14,6 @@ class Sistema extends Model
 
     public function scopeDescripcion($query, $descripcion)
     {
-
         $query->where('Descripcion', 'like', '%' . $descripcion . '%');
     }  
 }
