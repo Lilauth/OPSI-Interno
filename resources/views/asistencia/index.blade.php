@@ -34,14 +34,14 @@
                                         <td colspan="4">
                                             <h3>Balance</h3>
                                             <h6> 
-                                                @if (($totales['balance_h'] > 0)&&($totales['balance_m'] >= 0))
+                                                @if (($totales['balance_h'] < 0)&&($totales['balance_m'] <= 0))
                                                     <strong>Debe a&uacute;n: </strong>
-                                                    {{ $totales['balance_h'] }} hs, {{ $totales['balance_m'] }} min
+                                                    {{ - $totales['balance_h'] }} hs, {{ - $totales['balance_m'] }} min
                                                 @elseif (($totales['balance_h'] == 0)&&($totales['balance_m'] == 0))
                                                     <strong>Sin Deuda! </strong>
                                                 @else
                                                     <strong>A favor:</strong>
-                                                    {{ - $totales['balance_h'] }} hs, {{ -$totales['balance_m'] }} min
+                                                    {{ $totales['balance_h'] }} hs, {{ $totales['balance_m'] }} min
                                                 @endif
                                             </h6>
                                             <h6>&nbsp;</h6>

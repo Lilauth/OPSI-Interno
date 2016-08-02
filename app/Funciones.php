@@ -74,18 +74,10 @@ class Funciones
     (isnull(sum(datepart(minute, debe)), 0) % 60) as minutos_d,
     (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))as horas_r,
     (isnull(sum(datepart(minute, recupera)), 0) % 60) as minutos_r,
-    case
-        when (isnull(sum(datepart(minute, recupera)), 0) % 60) > (isnull(sum(datepart(minute, debe)), 0) % 60) then
-            (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) - (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))
-        else
-            (isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) - (isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60))
-    end as balance_h,
-    case
-        when (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60) < 0 then
-            (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60)
-        else
-            (isnull(sum(datepart(minute, debe)), 0) % 60) - (isnull(sum(datepart(minute, recupera)), 0) % 60) 
-    end as balance_m'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
+    (((isnull(sum(datepart(minute, recupera)), 0) % 60) + ((isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60)) * 60)) - 
+    ((isnull(sum(datepart(minute, debe)), 0) % 60) + ((isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) * 60))) / 60 as balance_h,
+    (((isnull(sum(datepart(minute, recupera)), 0) % 60) + ((isnull(sum(datepart(hour, recupera)), 0) + (isnull(sum(datepart(minute, recupera)), 0) / 60)) * 60)) - 
+    ((isnull(sum(datepart(minute, debe)), 0) % 60) + ((isnull(sum(datepart(hour, debe)), 0) + (isnull(sum(datepart(minute, debe)), 0) / 60)) * 60))) % 60 as balance_m'))->where('idDesarrollador', $id_desarrollador)->whereRaw('DATEPART(YEAR, fecha) = ? AND DATEPART(MONTH, fecha) = ?', [$anio, $mes])->groupBy('idDesarrollador')->get();
 
         //llenamos el arreglo para la vista con los datos de horas y minutos de asistencias
         $totales = array();        
